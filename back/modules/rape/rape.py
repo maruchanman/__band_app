@@ -12,9 +12,10 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from collections import Counter
+from ..mecab.main import update_band_dic
 
 RAPE_DIR = "./modules/rape"
-DIC_DIR = "./modules/mecab/bands.dic"
+DIC_DIR = "./modules/mecab"
 
 
 class Rape():
@@ -31,6 +32,7 @@ class Rape():
         self.month = month
 
     def execute(self):
+        update_band_dic()
         arr = []
         df = self._read_template()
         for houseID, data in df.iterrows():
@@ -151,7 +153,7 @@ class Rape():
         return prices
 
     def __extract_band(self, html):
-        tagger = MeCab.Tagger('-u {}'.format(DIC_DIR))
+        tagger = MeCab.Tagger('-u {}/bands.dic'.format(DIC_DIR))
         r = []
         for d in tagger.parse(html).split('\n'):
             if d.split(',')[-1] == 'バンド':
