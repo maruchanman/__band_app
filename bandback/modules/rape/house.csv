@@ -1,0 +1,83 @@
+houseID,ctg,name,prefacture,url,box
+1,b,東高円寺二万電圧,東京,http://den-atsu.com/?schedule=%4d-%d-schedule,■\d+?/:class="hpb_social"
+2,a,下北沢BASEMENT BAR,東京,http://www.toos.co.jp/basementbar/schedule/bb%4d_%s.html,"tr[valign=""middle""]"
+3,a,下北沢THREE,東京,http://www.toos.co.jp/3/3_schedule_%2d%s.html,table table table table tr
+4,d,柏DoMe,千葉,http://www.kcdo.me/schedule/,
+5,a,下北沢daisy bar,東京,http://www.daisybar.jp/schedule/%2d%s.html,tr
+6,a,下北沢SHELTER,東京,http://www.loft-prj.co.jp/schedule/shelter/date/%4d/%s,.timetable > tr
+7,a,下北沢QUE,東京,http://www.ukproject.com/que/schedule/thismonth.html,table tr
+8,a,下北沢251,東京,http://www.club251.com/sche/%2d%s.html,.day
+9,a,下北沢ERA,東京,http://s-era.jp/%4d/%d/?cat=20,.schedule-day
+10,a,下北沢GARDEN,東京,http://gar-den.in/?m=%4d%s,article
+11,a,下北沢MOSAiC,東京,http://www.studio-museum.com/mosaic/schedule/%4d%s.html,"td[align=""center""] > table"
+12,a,下北沢GARAGE,東京,http://www.garage.or.jp/date/%4d/%s,article
+13,a,下北沢ReG,東京,http://www.reg-r2.com/?page_id=7250&ym=%4d-%s,#live_date > tr
+14,a,新代田FEVER,東京,http://www.fever-popo.com/schedule/%4d/%s/,.hentry
+15,a,高円寺HIGH,東京,http://koenji-high.com/schedule/?sy=%4d&sm=%d,.eventlist
+16,a,高円寺CLUB MISSIONS,東京,http://www.live-missions.com/schedule.html?ym=%4d-%s,.liveContents
+17,a,東高円寺UFO CLUB,東京,http://www.ufoclub.jp/schedule/,tr
+18,a,高円寺CLUB ROOTS,東京,http://www.muribushi.jp/schedule/%4d_%s.html,.schedule-list > li
+19,a,渋谷TSUTAYA O-EAST,東京,http://shibuya-o.com/east/schedule/,.schedule_row
+20,a,渋谷TSUTAYA O-WEST,東京,http://shibuya-o.com/west/schedule/,.schedule_row
+21,a,渋谷TSUTAYA O-Crest,東京,http://shibuya-o.com/crest/schedule/,.schedule_row
+22,a,渋谷TSUTAYA O-nest,東京,http://shibuya-o.com/nest/schedule/,.schedule_row
+23,d,渋谷乙,東京,http://kinoto.jp/sched/%4d/%s-%4d,tr
+24,a,渋谷WWW,東京,http://www-shibuya.jp/schedule/,article
+25,e,渋谷duo MUSIC EXCHANGE,東京,http://www.duomusicexchange.com/schedule/%4d/%s/index.html,date_img/:</body>
+26,b,渋谷La.mama,東京,http://lamama.net/staticpages/index.php/schedule_%4d%s,<p>&nbsp;</p>:rightblocks
+28,e,渋谷eggman,東京,http://eggman.jp/daytime/schedule/%4d/%s/#main,
+29,a,渋谷LOOP ANNEX,東京,http://www.live-loop.com/schedule/sl/schedule_%2d%s.html,.event
+30,a,代官山UNIT,東京,http://www.unit-tokyo.com/schedule//%4d/%s/all_schedule.php,.stripe > tr
+31,a,代官山LOOP,東京,http://www.live-loop.com/schedule/dl/schedule_%2d%s.html,.event
+32,a,代官山晴れたら空に豆まいて,東京,http://mameromantic.com/?m=%4d%s&cat=1,.hentry
+33,e,恵比寿LIQUIDROOM,東京,http://www.liquidroom.net/schedule/%4d/%s/,
+34,a,恵比寿天窓.switch,東京,http://otonami.com/swsche,.schedule > li
+35,b,原宿ASTRO HALL,東京,http://www.astro-hall.com/category/schedule/?d=%4d%s,class="date.*?>:scheduleNavi
+36,a,青山月見ル君想フ,東京,http://www.moonromantic.com/?m=%4d%s&cat=1,.hentry
+37,b,新宿Motion,東京,http://motion-web.jp/html/%4d%s.html,<font color="#000000">\d{2}.:▲ページTOPへ
+38,b,新宿Marble,東京,http://marble-web.jp/html/sche_%2d%s.html,colspan="3">\d+?/:Copyright
+39,a,新宿Marz,東京,http://www.marz.jp/schedule/%4d/%s/,article
+40,a,新宿LOFT,東京,http://www.loft-prj.co.jp/schedule/loft/date/%4d/%s,.timetable > tr
+41,a,新宿レッドクロス,東京,http://www.sputniklab.com/redcloth/%2d%s.html,body > div > table > tr
+42,a,新宿NINESPICES,東京,http://9spices.rinky.info/schedule/sche10.cgi?mode=main&year=%4d&mon=%d,body > center > table
+43,a,新宿BRAZE,東京,http://shinjuku-blaze.com/event/date/%4d/%s,article
+44,a,新宿Wild Side Tokyo,東京,http://ws-tokyo.com/schedule/?t=%4d%s,section
+45,b,初台WALL,東京,http://wall-moonstep.com/wall/wall_mobile/schedule/%4d/%4d_%s_mobile.html,<b>\d+?/:-TOP-
+46,a,池袋EDGE,東京,http://xxxrecords.jp/edge/pg%2d%-s.html,.table > tr
+47,b,池袋Adm,東京,http://www.adm-rock.com/sche2/index.html,<h3>:class="block"
+48,e,高田馬場AREA,東京,http://www.xxxrecords.jp/area/sche_%2d%s.html,
+49,a,高田馬場CLUB PHASE,東京,http://www.club-phase.com/contents/sched/%2d%s.html,#sched > tr
+50,a,四谷OUTBREAK,東京,http://www.hor-outbreak.com/live.php?ym=%4d-%s,section
+51,a,四谷天窓,東京,http://otonami.com/ysche,.schedule li
+52,a,四谷天窓.comfort,東京,http://otonami.com/cosche,.main-clumn li
+53,a,赤坂BLITZ,東京,http://www.tbs.co.jp/blitz/schedule_a/schedule%4d%s.html,.sc-itm > tr
+54,a,大塚MEETS,東京,http://meets.rinky.info/sche10.cgi?mode=main&year=%4d&mon=%d,body > center > table
+55,f,新大久保EARTHDOM,東京,http://www1.odn.ne.jp/~cfs81480/index.html/%4d.%s.html,
+56,a,秋葉原GOODMAN,東京,http://clubgoodman.com/schedule/schedule%2d-%s.html,.schedule_table > tr
+57,e,小岩BUSHBASH,東京,http://www.bushbash.org/mobile_schedule%2d%s.html,
+58,d,吉祥寺WARP,東京,http://warp.rinky.info/schedules,.scheduleInner
+59,a,八王子MatchVox,東京,http://matchvox.rinky.info/schedule/sche10.cgi?mode=main&year=%4d&mon=%d,body > center > table
+60,a,八王子RIPS,東京,http://rips.rinky.info/schedule/sche10.cgi?mode=main&year=%4d&mon=%d,body > center > table
+61,a,西荻窪FLAT,東京,http://flat.rinky.info/schedule/sche10.cgi?mode=main&year=%4d&mon=%d,body > center > table
+62,a,立川BABEL,東京,http://www.babel-rocktower.net/schedule/%4d%s.html,dl
+63,a,ZEPP TOKYO,東京,http://hall.zepp.co.jp/tokyo/schedule.html?year=%4d&month=%s,.date_box
+64,a,ZEPP Diver City,東京,http://hall.zepp.co.jp/divercity/schedule.html?year=%4d&month=%s,.date_box
+65,a,新木場STUDIO COAST,東京,http://www.studio-coast.com/%4d/%d/,.schedule-list-item
+66,b,学芸大学MAPLEHOUSE,東京,http://www.maplehouse.jp/schedule/schedule.html,class="hr":class="abl"
+67,a,千葉LOOK,千葉,http://chibalook.com/schedule/index.html,table[width="560"]
+68,b,新松戸FIREBIRD,千葉,http://www.aj-group.co.jp/schedule/%4d/%d.html,<h4>\d+?/:</body>
+69,a,横浜BAYSIS,神奈川,http://www.yokohamabaysis.com/schedule.php?mt=%4d.%s#schedule_list,.sbox
+71,b,横浜F.A.D,神奈川,http://www.fad-music.com/fad/?page_id=3,<hr/>:1日〜
+72,b,横浜club Lizard,神奈川,http://www.club-lizard.com/lizard/?page_id=29,<hr/>:<p>
+73,b,横浜B.B.street,神奈川,http://www.bbstreet.com/%4d/%s?cat=5,\d{4}年\d+?月:</body>
+74,b,横浜7th AVENUE,神奈川,http://www2.big.or.jp/~7th/schedule/%2d%s.html,postdate">:divider
+76,a,町田SDR,東京,http://www.m-sdr.com/schedule/index.cgi?year=%4d&mon=%d,.scheduleArea tr
+77,a,ZEPP SAPPORO,北海道,http://hall.zepp.co.jp/sapporo/schedule.html?year=%4d&month=%s,.date_box
+78,a,ZEPP NAGOYA,愛知,http://hall.zepp.co.jp/nagoya/schedule.html?year=%4d&month=%s,.date_box
+79,a,ZEPP NAMBA,大阪,http://hall.zepp.co.jp/namba/schedule.html?year=%4d&month=%s,.date_box
+80,b,高円寺CLUB MISSION'S,東京,http://www.live-missions.com/schedule.html?ym=%4d-%s,class="liveDate":footer
+81,a,高円寺JIROKICHI,東京,http://jirokichi.net/category/%4d年%d月/,.post-schedule
+82,a,下北沢ろくでもない夜,東京,http://69demonai46.com/date/%4d/%s/,.eventBox
+83,b,高円寺ALONE,東京,http://k-alone.com/schedule/%2d/%s.html,sell1:/table
+84,a,渋谷HOME,東京,http://www.toos.co.jp/home/h_schedule%2d_%s.html,table[width="510"]
+85,a,渋谷チェルシーホテル,東京,http://www.chelseahotel.jp/%2d%s.html,.bold
