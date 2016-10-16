@@ -7,22 +7,13 @@ import {
   TouchableWithoutFeedback,
   ScrollView
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import SafariView from 'react-native-safari-view';
-
 import BandRow from './BandRow.js';
 
 export default class LivePage extends React.Component {
 
   render() {
 
-    const goToWebPage = (url) => Actions.webPage({url: url});
-
-    let live = this.props.data;
-    console.log(live);
-
-    var dateStr = String(live.yyyymmdd);
+    var dateStr = String(this.props.live.yyyymmdd);
     var y = dateStr.slice(0, 4);
     var m = dateStr.slice(4, -2);
     var d = dateStr.slice(-2,);

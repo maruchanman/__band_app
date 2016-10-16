@@ -4,21 +4,14 @@ import {
   Text,
   View,
   Image,
-  ListView,
   TouchableWithoutFeedback
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
-import Icon from 'react-native-vector-icons/FontAwesome';
-
 
 export default class LiveRow extends React.Component {
 
   render() {
 
-    const goToLivePage = (liveData) => Actions.livePage({data: liveData});
-    const icon = this.props.rowData.image;
-    
-    var dateStr = String(this.props.rowData.yyyymmdd);
+    var dateStr = String(this.props.live.yyyymmdd);
     var ymd = dateStr.slice(0, 4) + '/' + dateStr.slice(4, -2) + '/' + dateStr.slice(-2,);
     var date = new Date(ymd);
     var weeks = ["日", "月", "火", "水", "木", "金", "土"];
@@ -26,13 +19,16 @@ export default class LiveRow extends React.Component {
 
     return (
       <View style={styles.row}>
-        <TouchableWithoutFeedback onPress={() => goToLivePage(this.props.rowData)}>
+        <TouchableWithoutFeedback
+          onPress={() => this.props.push({name: "LivePage", liveID: this.props.live.liveID})}>
           <View style={styles.item}>
-            <Image source={{uri: icon}} style={styles.image} />
+            <Image source={{uri: this.props.live.image}} style={styles.image} />
             <View style={styles.textBox}>
-              <Text style={styles.liveHouse}>{this.props.rowData.name}</Text>
+              <Text style={styles.liveHouse}>{this.props.live.name}</Text>
               <Text style={styles.yyyymmdd}>{ymd}({w})</Text>
-              {this.props.rowData.act.map((band) => (<Text key={band.bandID} style={styles.act}>{band.name}</Text>))}
+              {this.props.live.act.map((band) => (
+                <Text key={band.bandID} style={styles.act}>{band.name}</Text>
+              ))}
             </View>
           </View>
         </TouchableWithoutFeedback>

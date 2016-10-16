@@ -1,14 +1,14 @@
 dependencies: \
-  /Users/hacker/work/bandapp/app/node_modules/react-native/Libraries/Image/RCTGIFImageDecoder.m \
-  /Users/hacker/work/bandapp/app/node_modules/react-native/Libraries/Image/RCTGIFImageDecoder.h \
-  /Users/hacker/work/bandapp/app/node_modules/react-native/Libraries/Image/RCTImageLoader.h \
+  /Users/hacker/work/bandapp/gigs/node_modules/react-native/Libraries/Image/RCTGIFImageDecoder.m \
+  /Users/hacker/work/bandapp/gigs/node_modules/react-native/Libraries/Image/RCTGIFImageDecoder.h \
+  /Users/hacker/work/bandapp/gigs/node_modules/react-native/Libraries/Image/RCTImageLoader.h \
   ../../React/Base/RCTBridge.h ../../React/Base/RCTBridgeDelegate.h \
   ../../React/Base/RCTJavaScriptLoader.h \
   ../../React/Base/RCTBridgeModule.h ../../React/Base/RCTDefines.h \
   ../../React/Base/RCTFrameUpdate.h ../../React/Base/RCTInvalidating.h \
   ../../React/Base/RCTURLRequestHandler.h \
   ../../React/Base/RCTURLRequestDelegate.h \
-  /Users/hacker/work/bandapp/app/node_modules/react-native/Libraries/Image/RCTResizeMode.h \
+  /Users/hacker/work/bandapp/gigs/node_modules/react-native/Libraries/Image/RCTResizeMode.h \
   ../../React/Base/RCTConvert.h ../../React/CSSLayout/CSSLayout.h \
   ../../React/CSSLayout/CSSMacros.h ../../React/Views/RCTAnimationType.h \
   ../../React/Views/RCTBorderStyle.h \

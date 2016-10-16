@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-class gigs extends Component {
+export default class gigs extends Component {
   render() {
     return (
       <View style={styles.container}>
