@@ -62,15 +62,9 @@ fetch = Fetch("local")
 
 
 @app.route('/b/lives/<int:year>/<int:month>/<int:day>')
-def list_live(year, month, day):
+def fetch_lives(year, month, day):
     date = datetime.date(year, month, day)
     data = fetch.execute("lives", {"date": date.strftime('%Y%m%d')})
-    print(data)
-
-    @after_this_request
-    def d_header(response):
-        response.headers["Access-Control-Allow-Origin"] = "*"
-        return response
     return jsonify(data)
 
 
@@ -78,34 +72,18 @@ def list_live(year, month, day):
 def fetch_live(liveID):
     data = fetch.execute("live", liveID)
     data["url"] = _fix_url(data["url"], data["yyyymmdd"])
-    print(data)
-
-    @after_this_request
-    def d_header(response):
-        response.headers["Access-Control-Allow-Origin"] = "*"
-        return response
     return jsonify(data)
 
 
 @app.route('/b/band/<int:bandID>')
 def fetch_band(bandID):
     data = fetch.execute("band", bandID)
-
-    @after_this_request
-    def d_header(response):
-        response.headers["Access-Control-Allow-Origin"] = "*"
-        return response
     return jsonify(data)
 
 
 @app.route('/b/schedule/<int:bandID>')
-def list_schedule(bandID):
+def fetch_schedule(bandID):
     data = fetch.execute("lives", {"bandID": bandID})
-
-    @after_this_request
-    def d_header(response):
-        response.headers["Access-Control-Allow-Origin"] = "*"
-        return response
     return jsonify(data)
 
 

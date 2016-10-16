@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS gigs.act
 
 CREATE TABLE IF NOT EXISTS gigs.house
 (
-  houseID int(11) AUTO_INCREMENT,
+  houseID int(11),
   name varchar(255) NOT NULL,
   prefacture char(3),
   url varchar(255),

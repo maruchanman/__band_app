@@ -12,10 +12,12 @@ def prevmonth(date):
 
 date = datetime.date.today()
 rape = Rape()
-insert = Insert("local")
-for delta in range(12, 36):
-    date = prevmonth(date)
-    print('\n\nRaping: {0}/{1}\n\n'.format(date.year, date.month))
-    rape.set(date.year, date.month)
-    r = rape.execute()
-    insert.insert_live(r)
+house_df = rape.house_df()
+insert = Insert("remote")
+insert.insert_house(house_df)
+#for delta in range(12):
+#    date = prevmonth(date)
+#    print('\n\nRaping: {0}/{1}\n\n'.format(date.year, date.month))
+#    rape.set(date.year, date.month)
+#    r = rape.execute()
+#    insert.insert_live(r)

@@ -68,12 +68,10 @@ class Insert(Connect):
                     houseID, context, live["time"][0],
                     ticket, live["image"].replace("'", "''"), yyyymmdd)
                 cur.execute(sql)
-                print(sql)
                 return cur.lastrowid
             else:
                 sql = "UPDATE live SET context = '{0}', ticket = {1} WHERE liveID = {2}"
                 sql = sql.format(context, ticket, liveID)
-                print(sql)
                 cur.execute(sql)
                 return liveID
         else:
@@ -95,7 +93,6 @@ class Insert(Connect):
                     sql = (
                         "INSERT INTO act (liveID, bandID) VALUES ({0}, {1})"
                     ).format(liveID, bandID)
-                    print(sql)
                     cur.execute(sql)
 
     def _video(self, band):
@@ -114,14 +111,14 @@ class Insert(Connect):
         return video
 
     def _house(self, house, cur):
-        sql = "SELECT count(*) FROM house WHERE name = '{}'".format(house["name"])
+        name = house["name"].replace("'", "''")
+        sql = "SELECT count(1) FROM house WHERE houseID = {}".format(house["houseID"])
         cur.execute(sql)
         if cur.fetchone()[0] == 0:
             sql = (
-                "INSERT INTO house (name, url) VALUES ('{0}', '{1}')"
-            ).format(house["name"], house.url)
-        print(sql)
-        cur.execute(sql)
+                "INSERT INTO house (houseID, name, url) VALUES ({2}, '{0}', '{1}')"
+            ).format(name, house["url"], house["houseID"])
+            cur.execute(sql)
 
     def _zerohead(self, number):
         return str(number) if number > 9 else '0{}'.format(number)

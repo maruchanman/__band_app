@@ -26,26 +26,24 @@ class Rape():
         self.video_url = (
             "http://video.search.yahoo.co.jp/search?p=%s&ei=UTF-8&rkf=1&oq=")
         self.today = datetime.date.today()
+        # update_band_dic()
 
     def set(self, year, month):
         self.year = year
         self.month = month
 
-    def execute(self):
-        update_band_dic()
+    def execute(self, df):
         arr = []
-        df = self._read_template()
         for houseID, data in df.iterrows():
             live = {
                 "houseID": houseID, "year": self.year, "month": self.month}
             soup = self._croll(data)
             live["data"] = self._extract(soup, data) if soup else []
             arr.append(live)
-        self._save(arr)
         return arr
 
-    def _read_template(self):
-        df = pd.read_csv("{}/house.csv".format(RAPE_DIR), index_col=0)
+    def house_df(self):
+        df = pd.read_csv("{}/house.csv".format(RAPE_DIR))
         df = df[(df.ctg == "a") | (df.ctg == "b")]
         return df
 
@@ -70,12 +68,6 @@ class Rape():
                 r.append(rr)
         r = self.__fixdate(r)
         return r if r else []
-
-    def _save(self, arr):
-        path = "{2}/data/{0}{1}.json".format(
-            self.year, self._zerohead(self.month), RAPE_DIR)
-        with open(path, "w") as f:
-            json.dump(arr, f)
 
     def __fix_url(self, url):
         url = url.replace("%4d", str(self.year))
@@ -181,7 +173,7 @@ class Rape():
                     flag = 1
                     break
             except:
-                print('except')
+                pass
         return r if flag == 1 else False
 
     def _zerohead(self, number):
