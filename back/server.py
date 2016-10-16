@@ -58,7 +58,7 @@ def post_band():
 
 # - select  -----------------------------
 
-fetch = Fetch("local")
+fetch = Fetch("remote")
 
 
 @app.route('/b/lives/<int:year>/<int:month>/<int:day>')

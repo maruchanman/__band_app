@@ -37,7 +37,7 @@ class Fetch(Connect):
         if len([x for x in keys if x == 'date']) > 0:
             sql = (
                     "SELECT DISTINCT live.liveID, live.image, "
-                    "house.name "
+                    "live.yyyymmdd, house.name "
                     "FROM live INNER JOIN house "
                     "ON live.houseID = house.houseID "
                     "WHERE live.yyyymmdd = {}"
@@ -45,7 +45,7 @@ class Fetch(Connect):
         elif len([x for x in keys if x == 'bandID']) > 0:
             sql = (
                     "SELECT DISTINCT live.liveID, live.image, "
-                    "house.name "
+                    "live.yyyymmdd, house.name "
                     "FROM live INNER JOIN house "
                     "ON live.houseID = house.houseID "
                     "INNER JOIN act ON live.liveID = act.liveID "
