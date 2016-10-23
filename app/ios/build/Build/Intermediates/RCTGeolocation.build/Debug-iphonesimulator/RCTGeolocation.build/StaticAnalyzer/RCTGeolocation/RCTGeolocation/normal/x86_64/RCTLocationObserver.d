@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/hacker/work/bandapp/gigs/node_modules/react-native/Libraries/Geolocation/RCTLocationObserver.m \
-  /Users/hacker/work/bandapp/gigs/node_modules/react-native/Libraries/Geolocation/RCTLocationObserver.h \
+  /Users/hacker/work/bandapp/app/node_modules/react-native/Libraries/Geolocation/RCTLocationObserver.m \
+  /Users/hacker/work/bandapp/app/node_modules/react-native/Libraries/Geolocation/RCTLocationObserver.h \
   ../../React/Modules/RCTEventEmitter.h ../../React/Base/RCTBridge.h \
   ../../React/Base/RCTBridgeDelegate.h \
   ../../React/Base/RCTJavaScriptLoader.h \

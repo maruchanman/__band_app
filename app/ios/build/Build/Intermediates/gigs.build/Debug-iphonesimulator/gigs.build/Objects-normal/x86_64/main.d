@@ -1,2 +1,2 @@
-dependencies: /Users/hacker/work/bandapp/gigs/ios/gigs/main.m \
-  /Users/hacker/work/bandapp/gigs/ios/gigs/AppDelegate.h
+dependencies: /Users/hacker/work/bandapp/app/ios/gigs/main.m \
+  /Users/hacker/work/bandapp/app/ios/gigs/AppDelegate.h

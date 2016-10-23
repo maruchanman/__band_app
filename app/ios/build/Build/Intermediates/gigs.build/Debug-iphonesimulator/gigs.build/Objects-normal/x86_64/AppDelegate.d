@@ -1,5 +1,5 @@
-dependencies: /Users/hacker/work/bandapp/gigs/ios/gigs/AppDelegate.m \
-  /Users/hacker/work/bandapp/gigs/ios/gigs/AppDelegate.h \
+dependencies: /Users/hacker/work/bandapp/app/ios/gigs/AppDelegate.m \
+  /Users/hacker/work/bandapp/app/ios/gigs/AppDelegate.h \
   ../node_modules/react-native/React/Base/RCTBundleURLProvider.h \
   ../node_modules/react-native/React/Base/RCTRootView.h \
   ../node_modules/react-native/React/Base/RCTBridge.h \

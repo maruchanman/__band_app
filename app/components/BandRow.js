@@ -6,36 +6,35 @@ import {
   TouchableWithoutFeedback,
   Image
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-import BandTag from './BandTag.js';
 
 export default class BandRow extends React.Component {
 
   render() {
 
-    const goToBandPage = (bandData) => Actions.bandPage({data: bandData, type: ActionConst.FOCUS});
-
     return (
-      <View>
-        <TouchableWithoutFeedback onPress={() => goToBandPage(this.props.rowData)}>
-          <View style={styles.tag}>
-            <BandTag data={this.props.rowData}/>
-            <Icon name='chevron-right' color='gray' size={18}/>
-          </View>
-        </TouchableWithoutFeedback>
-      </View>
+      <TouchableWithoutFeedback
+        onPress={() => this.props.push({name: "BandPage", band: this.props.band})}>
+        <View style={styles.row}>
+          <Text style={styles.infoText}>{this.props.band.name}</Text>
+          <Icon color="gray" size={16} name="chevron-right"/>
+        </View>
+      </TouchableWithoutFeedback>
     )
   }
 
 }
 
 const styles = StyleSheet.create({
-  tag: {
+  row: {
+    paddingVertical: 8,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between'
-  }
+  },
+  infoText: {
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
 });

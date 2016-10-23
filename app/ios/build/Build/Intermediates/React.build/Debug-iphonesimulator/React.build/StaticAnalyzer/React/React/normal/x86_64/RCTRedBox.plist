@@ -6,7 +6,7 @@
 <string>Apple LLVM version 7.3.0 (clang-703.0.31)</string>
  <key>files</key>
  <array>
-  <string>/Users/hacker/work/bandapp/gigs/node_modules/react-native/React/Modules/RCTRedBox.m</string>
+  <string>/Users/hacker/work/bandapp/app/node_modules/react-native/React/Modules/RCTRedBox.m</string>
  </array>
  <key>diagnostics</key>
  <array>

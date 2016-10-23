@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/hacker/work/bandapp/gigs/node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheetManager.m \
-  /Users/hacker/work/bandapp/gigs/node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheetManager.h \
+  /Users/hacker/work/bandapp/app/node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheetManager.m \
+  /Users/hacker/work/bandapp/app/node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheetManager.h \
   ../../React/Base/RCTBridge.h ../../React/Base/RCTBridgeDelegate.h \
   ../../React/Base/RCTJavaScriptLoader.h \
   ../../React/Base/RCTBridgeModule.h ../../React/Base/RCTDefines.h \

@@ -5,13 +5,17 @@ import {
   View,
   Image,
   TouchableWithoutFeedback,
-  ScrollView
+  ScrollView,
+  Linking
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import BandRow from './BandRow.js';
 
 export default class LivePage extends React.Component {
 
   render() {
+
+    console.log(this.props.live);
 
     var dateStr = String(this.props.live.yyyymmdd);
     var y = dateStr.slice(0, 4);
@@ -23,29 +27,28 @@ export default class LivePage extends React.Component {
 
     return (
       <ScrollView style={styles.container}>
-        <View style={styles.infobox}>
-          <Text style={styles.livehouse}>{live.name}</Text>
+        <View style={styles.box}>
+          <Text style={styles.livehouse}>{this.props.live.name}</Text>
           <View style={styles.info}>
-            <Icon name='calendar' color='black' size={18}/>
             <Text style={styles.infoText}>{y}/{m}/{d}({w})</Text>
           </View>
           <View style={styles.info}>
-            <Icon name='clock-o' color='black' size={18}/>
-            <Text style={styles.infoText}>{live.open}</Text>
-            <Icon name='jpy' color='black' size={18}/>
-            <Text style={styles.infoText}>{live.ticket}</Text>
+            <Icon color="black" size={16} name="clock-o"/>
+            <Text style={styles.infoText}>{this.props.live.open}</Text>
+            <Icon color="black" size={16} name="jpy"/>
+            <Text style={styles.infoText}>{this.props.live.ticket}</Text>
           </View>
-          <Image source={{uri: live.image}} style={{flex: 1, minHeight: 200}}/>
-          <Text style={styles.context}>{live.context}</Text>
+          <Image source={{uri: this.props.live.image}} style={styles.image}/>
+          <Text style={styles.context}>{this.props.live.context}</Text>
         </View>
         <View style={styles.box}>
           <Text style={{color: 'gray'}}>出演</Text>
-          {live.act.map((rowData) => (
-            <BandRow key={rowData.bandID} rowData={rowData} />
+          {this.props.live.act.map((band) => (
+            <BandRow key={band.bandID} band={band} push={this.props.navigator.push}/>
           ))}
         </View>
         <View>
-          <TouchableWithoutFeedback onPress={() => goToWebPage('http://' + live.homepage)}>
+          <TouchableWithoutFeedback onPress={() => Linking.openURL(this.props.live.url)}>
             <View style={styles.box}>
               <Text style={styles.link}>掲載元ページへ</Text>
             </View>
@@ -65,27 +68,26 @@ const styles = StyleSheet.create({
   },
   box: {
     margin: 5,
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 20,
     backgroundColor: 'white'
-  },
-  infobox: {
-    margin: 5,
-    padding: 10,
-    backgroundColor: 'white',
   },
   livehouse: {
     fontSize: 22,
     fontWeight: 'bold'
   },
+  image: {
+    flex: 1,
+    minHeight: 200
+  },
   info: {
     flex: 0,
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 5,
   },
   infoText: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 16,
   },
   context: {
     color: 'gray',

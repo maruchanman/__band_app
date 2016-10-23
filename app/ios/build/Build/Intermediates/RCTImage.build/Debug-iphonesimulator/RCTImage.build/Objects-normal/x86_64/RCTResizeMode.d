@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/hacker/work/bandapp/gigs/node_modules/react-native/Libraries/Image/RCTResizeMode.m \
-  /Users/hacker/work/bandapp/gigs/node_modules/react-native/Libraries/Image/RCTResizeMode.h \
+  /Users/hacker/work/bandapp/app/node_modules/react-native/Libraries/Image/RCTResizeMode.m \
+  /Users/hacker/work/bandapp/app/node_modules/react-native/Libraries/Image/RCTResizeMode.h \
   ../../React/Base/RCTConvert.h ../../React/CSSLayout/CSSLayout.h \
   ../../React/CSSLayout/CSSMacros.h ../../React/Views/RCTAnimationType.h \
   ../../React/Views/RCTBorderStyle.h \

@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/hacker/work/bandapp/gigs/node_modules/react-native/Libraries/Text/RCTShadowText.m \
-  /Users/hacker/work/bandapp/gigs/node_modules/react-native/Libraries/Text/RCTShadowText.h \
+  /Users/hacker/work/bandapp/app/node_modules/react-native/Libraries/Text/RCTShadowText.m \
+  /Users/hacker/work/bandapp/app/node_modules/react-native/Libraries/Text/RCTShadowText.h \
   ../../React/Views/RCTShadowView.h ../../React/CSSLayout/CSSLayout.h \
   ../../React/CSSLayout/CSSMacros.h ../../React/Views/RCTComponent.h \
   ../../React/Base/RCTRootView.h ../../React/Base/RCTBridge.h \
@@ -14,9 +14,9 @@ dependencies: \
   ../../React/Views/RCTBorderStyle.h ../../React/Base/RCTLog.h \
   ../../React/Base/RCTAssert.h ../../React/Views/RCTPointerEvents.h \
   ../../React/Views/RCTFont.h \
-  /Users/hacker/work/bandapp/gigs/node_modules/react-native/Libraries/Text/RCTShadowRawText.h \
-  /Users/hacker/work/bandapp/gigs/node_modules/react-native/Libraries/Text/RCTText.h \
-  /Users/hacker/work/bandapp/gigs/node_modules/react-native/Libraries/Text/RCTTextView.h \
+  /Users/hacker/work/bandapp/app/node_modules/react-native/Libraries/Text/RCTShadowRawText.h \
+  /Users/hacker/work/bandapp/app/node_modules/react-native/Libraries/Text/RCTText.h \
+  /Users/hacker/work/bandapp/app/node_modules/react-native/Libraries/Text/RCTTextView.h \
   ../../React/Views/RCTView.h ../../React/Views/UIView+React.h \
   ../../React/Modules/RCTUIManager.h ../../React/Views/RCTViewManager.h \
   ../../React/Base/RCTEventDispatcher.h ../../React/Base/RCTUtils.h

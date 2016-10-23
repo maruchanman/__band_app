@@ -20,7 +20,7 @@ export default class LiveRow extends React.Component {
     return (
       <View style={styles.row}>
         <TouchableWithoutFeedback
-          onPress={() => this.props.push({name: "LivePage", liveID: this.props.live.liveID})}>
+          onPress={() => this.props.push({name: "LivePage", live: this.props.live})}>
           <View style={styles.item}>
             <Image source={{uri: this.props.live.image}} style={styles.image} />
             <View style={styles.textBox}>

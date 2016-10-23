@@ -7,63 +7,53 @@ import {
   Image,
   ScrollView
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import YouTube from 'react-native-youtube';
-
-import BandTag from './BandTag.js';
 import LiveRow from './LiveRow.js';
 
 export default class BandPage extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      live: []
+      schedules: []
     }
-  }  
+  }
 
-  _loadLives() {
-    fetch('http://ec2-52-197-250-11.ap-northeast-1.compute.amazonaws.com/schedule/' + this.props.data.bandID)
+  _loadSchedule(bandID) {
+    var url = 'http://160.16.217.99/b/schedule/' + bandID;
+    fetch(url)
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({
-          live: responseData
+          schedules: responseData
         })
       })
-      .done();
   }
 
   componentDidMount() {
-    this._loadLives();
+    this._loadSchedule(this.props.band.bandID)
   }
 
   render() {
 
-    const goToWebPage = (url) => Actions.webPage({url: url});
-    
     return (
       <ScrollView style={styles.container}>
-        <View style={styles.bandBox}>
-          <TouchableWithoutFeedback onPress={() => goToWebPage(this.props.data.icon)}>
-            <View>
-              <BandTag data={this.props.data} />
-            </View>
-          </TouchableWithoutFeedback>
+        <View style={styles.box}>
+          <Text style={styles.bandName}>{this.props.band.name}</Text>
           <YouTube
-            videoId={this.props.data.video}
+            videoId={this.props.band.video}
             playsInline={true}
-            loop={false}
-            showinfo={false}
-            style={styles.video}
-          />
+            style={styles.video}/>
         </View>
-        <View style={styles.scheduleBox}>
-          {this.state.live.map(
-            (live) => (<LiveRow key={live.liveID} rowData={live}/>)
-          )}
+        <View style={styles.box}>
+          <Text style={{color: 'gray'}}>今後のライブ</Text>
+          {this.state.schedules.map((live) => (
+            <LiveRow live={live} key={live.liveID} push={this.props.navigator.push}/>
+          ))}
         </View>
       </ScrollView>
     );
+
   }
 
 }
@@ -73,11 +63,10 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     backgroundColor: 'whitesmoke',
   },
-  bandTag: {
-    flex: 0,
-    marginVertical: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
+  box: {
+    margin: 5,
+    padding: 10,
+    backgroundColor: 'white'
   },
   icon: {
     height: 70,
@@ -86,7 +75,7 @@ const styles = StyleSheet.create({
   bandName: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginHorizontal: 10
+    marginVertical: 10
   },
   bandBox: {
     flex: 1,
@@ -100,7 +89,7 @@ const styles = StyleSheet.create({
   },
   video: {
     flex: 1,
-    height: 200
+    minHeight: 200
   },
   label: {
     fontSize: 18,
