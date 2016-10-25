@@ -116,8 +116,9 @@ class Insert(Connect):
         cur.execute(sql)
         if cur.fetchone()[0] == 0:
             sql = (
-                "INSERT INTO house (houseID, name, url) VALUES ({2}, '{0}', '{1}')"
-            ).format(name, house["url"], houseID)
+                "INSERT INTO house (houseID, prefacture, name, url)"
+                " VALUES ({0}, '{1}', '{2}', '{3}')"
+            ).format(houseID, house["prefacture"], name, house["url"])
             cur.execute(sql)
 
     def _zerohead(self, number):

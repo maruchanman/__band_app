@@ -10,6 +10,5 @@ r.set(today.year, today.month)
 df_house = r.house_df()
 data = df_house.ix[houseID]
 soup = r._croll(data)
-print(soup)
 lives = r._extract(soup, data)
 print(lives)
