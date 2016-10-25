@@ -150,11 +150,15 @@ class Rape():
         for d in tagger.parse(html).split('\n'):
             if d.split(',')[-1] == 'バンド':
                 band = d.split(',')[0].split('\t')[0]
-                for extracted in [x for x in html.split("/") if x.find(band) != -1]:
-                    if len(extracted.replace(band, "")) < len(band):
-                        print(d)
+                if len(band) > 4:
+                    for extracted in [x for x in html.split("/") if x.find(band) != -1]:
+                        if len(extracted.replace(band, "")) < len(band):
+                            r.append(band)
+                else:
+                    if band in html.split("/"):
                         r.append(band)
         r = list(set(r)) if len(r) > 0 else []
+        print(r)
         return r
 
     def __fixdate(self, r):

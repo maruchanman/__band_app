@@ -16,8 +16,11 @@ insert = Insert("remote")
 insert.insert_house(house_df)
 date = datetime.date.today() + datetime.timedelta(days=30)
 for delta in range(24):
-    print('\n\nRaping: {0}/{1}\n\n'.format(date.year, date.month))
+    print('\nRaping: {0}/{1}\n'.format(date.year, date.month))
     rape.set(date.year, date.month)
-    r = rape.execute(house_df)
-    insert.insert_live(r)
+    try:
+        r = rape.execute(house_df)
+        insert.insert_live(r)
+    except:
+        pass
     date = prevmonth(date)

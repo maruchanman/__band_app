@@ -45,19 +45,20 @@ class Insert(Connect):
         conn.close()
   
     def _live(self, live, info, cur):
-        if len(live["time"]) > 0:
+        if len(live["html"]) > 0:
             houseID, year, month = info
             month = self._zerohead(month)
             day = self._zerohead(live["date"])
             yyyymmdd = '{0}{1}{2}'.format(year, month, day)
+            context = live["html"].replace("'", "''")
+            time = live["time"][0] if len(live["time"]) > 0 else "NULL"
+            ticket = live["price"][0] if len(live["price"]) > 0 else "NULL"
             sql = (
                 "SELECT count(*), liveID FROM live WHERE "
-                "houseID = {0} AND yyyymmdd = {1} AND open = '{2}'"
+                "houseID = {0} AND yyyymmdd = {1} AND context like '{2}%'"
             )
-            sql = sql.format(houseID, yyyymmdd, live["time"][0])
+            sql = sql.format(houseID, yyyymmdd, context[:10])
             cur.execute(sql)
-            context = live["html"].replace("'", "''")
-            ticket = live["price"][0] if len(live["price"]) > 0 else "NULL"
             cnt, liveID = cur.fetchone()
             if cnt == 0:
                 sql = (
@@ -65,13 +66,16 @@ class Insert(Connect):
                     "VALUES ({0}, '{1}', '{2}', {3}, '{4}', {5})"
                 )
                 sql = sql.format(
-                    houseID, context, live["time"][0],
+                    houseID, context, time,
                     ticket, live["image"].replace("'", "''"), yyyymmdd)
                 cur.execute(sql)
                 return cur.lastrowid
             else:
-                sql = "UPDATE live SET context = '{0}', ticket = {1} WHERE liveID = {2}"
-                sql = sql.format(context, ticket, liveID)
+                sql = (
+                    "UPDATE live SET context = '{0}', ticket = {1}, open = '{2}' "
+                    "WHERE liveID = {3}"
+                )
+                sql = sql.format(context, ticket, time, liveID)
                 cur.execute(sql)
                 return liveID
         else:
