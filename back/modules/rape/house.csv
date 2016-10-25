@@ -82,3 +82,4 @@ houseID,ctg,name,prefacture,url,box
 84,a,渋谷HOME,東京,http://www.toos.co.jp/home/h_schedule%2d_%s.html,table[width="510"]
 85,a,渋谷チェルシーホテル,東京,http://www.chelseahotel.jp/%2d%s.html,.bold
 86,b,柏ALIVE,千葉,http://sound.jp/alive/m/sche%d.html,<hr width="100%"/>:both
+87,a,下北沢LIVEHOLIC,東京,http://liveholic.jp/schedule/%4d/%s/,.date
