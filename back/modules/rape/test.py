@@ -7,7 +7,7 @@ houseID = int(sys.argv[1])
 today = datetime.date.today()
 r = Rape()
 r.set(today.year, today.month)
-df_house = r._read_template()
+df_house = r.house_df()
 data = df_house.ix[houseID]
 soup = r._croll(data)
 print(soup)

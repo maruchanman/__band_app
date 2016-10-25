@@ -26,7 +26,7 @@ class Rape():
         self.video_url = (
             "http://video.search.yahoo.co.jp/search?p=%s&ei=UTF-8&rkf=1&oq=")
         self.today = datetime.date.today()
-        # update_band_dic()
+        update_band_dic()
 
     def set(self, year, month):
         self.year = year
@@ -149,6 +149,7 @@ class Rape():
         r = []
         for d in tagger.parse(html).split('\n'):
             if d.split(',')[-1] == 'バンド':
+                print(d)
                 band = d.split(',')[0].split('\t')[0]
                 if band in html.split("/"):
                     r.append(band)
