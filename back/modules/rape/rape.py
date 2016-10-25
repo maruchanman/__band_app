@@ -43,7 +43,7 @@ class Rape():
         return arr
 
     def house_df(self):
-        df = pd.read_csv("{}/house.csv".format(RAPE_DIR))
+        df = pd.read_csv("{}/house.csv".format(RAPE_DIR), index_col=0)
         df = df[(df.ctg == "a") | (df.ctg == "b")]
         return df
 

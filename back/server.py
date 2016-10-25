@@ -48,7 +48,7 @@ def post_band():
         flag = -1
     df = pd.read_csv('./static/check.csv', index_col=0)
     df.ix[int(request.form["band_id"]), "flag"] = flag
-    df.to_csv('./static/check.csv')
+    df.to_csv('./static/check.csv', encoding="utf8")
     data = df[df.flag.isnull()]
     idx = data.index[0]
     band = df.ix[idx].band
@@ -65,6 +65,8 @@ fetch = Fetch("remote")
 def fetch_lives(year, month, day):
     date = datetime.date(year, month, day)
     data = fetch.execute("lives", {"date": date.strftime('%Y%m%d')})
+    for ix, dic in enumerate(data):
+        data[ix]["url"] = _fix_url(dic["url"], dic["yyyymmdd"])
     return jsonify(data)
 
 
@@ -84,6 +86,8 @@ def fetch_band(bandID):
 @app.route('/b/schedule/<int:bandID>')
 def fetch_schedule(bandID):
     data = fetch.execute("lives", {"bandID": bandID})
+    for ix, dic in enumerate(data):
+        data[ix]["url"] = _fix_url(dic["url"], dic["yyyymmdd"])
     return jsonify(data)
 
 

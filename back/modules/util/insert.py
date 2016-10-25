@@ -39,8 +39,8 @@ class Insert(Connect):
     def insert_house(self, df):
         conn = self.connect(self.db)
         cur = conn.cursor()
-        for ix, house in df.iterrows():
-            self._house(house, cur)
+        for houseID, house in df.iterrows():
+            self._house(houseID, house, cur)
         conn.commit()
         conn.close()
   
@@ -110,14 +110,14 @@ class Insert(Connect):
                 break
         return video
 
-    def _house(self, house, cur):
+    def _house(self, houseID, house, cur):
         name = house["name"].replace("'", "''")
-        sql = "SELECT count(1) FROM house WHERE houseID = {}".format(house["houseID"])
+        sql = "SELECT count(1) FROM house WHERE houseID = {}".format(houseID)
         cur.execute(sql)
         if cur.fetchone()[0] == 0:
             sql = (
                 "INSERT INTO house (houseID, name, url) VALUES ({2}, '{0}', '{1}')"
-            ).format(name, house["url"], house["houseID"])
+            ).format(name, house["url"], houseID)
             cur.execute(sql)
 
     def _zerohead(self, number):

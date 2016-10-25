@@ -33,19 +33,21 @@ class Fetch(Connect):
     def _fetch_lives(self, data, conn):
         cursor = conn.cursor(MySQLdb.cursors.DictCursor)
         keys = [key for key in data.keys()]
-        today = (datetime.datetime.today() - datetime.timedelta(days=60)).strftime('%Y%m%d')
         if len([x for x in keys if x == 'date']) > 0:
             sql = (
                     "SELECT DISTINCT live.liveID, live.image, "
-                    "live.yyyymmdd, house.name "
+                    "live.ticket, live.open, live.context, "
+                    "live.yyyymmdd, house.name, house.url "
                     "FROM live INNER JOIN house "
                     "ON live.houseID = house.houseID "
                     "WHERE live.yyyymmdd = {}"
                   ).format(data["date"])
         elif len([x for x in keys if x == 'bandID']) > 0:
+            today = (datetime.datetime.today() - datetime.timedelta(days=100)).strftime('%Y%m%d')
             sql = (
                     "SELECT DISTINCT live.liveID, live.image, "
-                    "live.yyyymmdd, house.name "
+                    "live.ticket, live.open, live.context, "
+                    "live.yyyymmdd, house.name, house.url "
                     "FROM live INNER JOIN house "
                     "ON live.houseID = house.houseID "
                     "INNER JOIN act ON live.liveID = act.liveID "
