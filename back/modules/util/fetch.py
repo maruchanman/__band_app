@@ -35,24 +35,25 @@ class Fetch(Connect):
         keys = [key for key in data.keys()]
         if len([x for x in keys if x == 'date']) > 0:
             sql = (
-                    "SELECT DISTINCT live.liveID, live.image, "
+                    "SELECT DISTINCT live.liveID, "
                     "live.ticket, live.open, live.context, "
-                    "live.yyyymmdd, house.name, house.url "
+                    "live.yyyymmdd, house.name, house.url, house.prefacture "
                     "FROM live INNER JOIN house "
                     "ON live.houseID = house.houseID "
-                    "WHERE live.yyyymmdd = {}"
+                    "WHERE live.yyyymmdd = {} "
+                    "ORDER BY house.prefacture, house.name"
                   ).format(data["date"])
         elif len([x for x in keys if x == 'bandID']) > 0:
             today = (datetime.datetime.today() - datetime.timedelta(days=100)).strftime('%Y%m%d')
             sql = (
-                    "SELECT DISTINCT live.liveID, live.image, "
+                    "SELECT DISTINCT live.liveID, "
                     "live.ticket, live.open, live.context, "
-                    "live.yyyymmdd, house.name, house.url "
+                    "live.yyyymmdd, house.name, house.url, house.prefacture "
                     "FROM live INNER JOIN house "
                     "ON live.houseID = house.houseID "
                     "INNER JOIN act ON live.liveID = act.liveID "
                     "WHERE act.bandID = {0} AND yyyymmdd > {1} "
-                    "ORDER BY yyyymmdd"
+                    "ORDER BY yyyymmdd, house.prefacture, house.name"
                   ).format(data["bandID"], today)
         cursor.execute(sql)
         return list(cursor.fetchall())

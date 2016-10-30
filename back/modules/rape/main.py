@@ -15,12 +15,13 @@ house_df = rape.house_df()
 insert = Insert("remote")
 insert.insert_house(house_df)
 date = datetime.date.today() + datetime.timedelta(days=30)
-for delta in range(24):
+date = datetime.date(2016, 8, 1)
+f = open("cronlog.txt", "a")
+for delta in range(1):
     print('\nRaping: {0}/{1}\n'.format(date.year, date.month))
     rape.set(date.year, date.month)
-    try:
-        r = rape.execute(house_df)
-        insert.insert_live(r)
-    except:
-        pass
+    r = rape.execute(house_df)
+    insert.insert_live(r)
+    f.write("{0}/{1}\n".format(date.year, date.month))
     date = prevmonth(date)
+f.close()

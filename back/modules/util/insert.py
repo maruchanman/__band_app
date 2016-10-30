@@ -57,7 +57,7 @@ class Insert(Connect):
                 "SELECT count(*), liveID FROM live WHERE "
                 "houseID = {0} AND yyyymmdd = {1} AND context like '{2}%'"
             )
-            sql = sql.format(houseID, yyyymmdd, context[:10])
+            sql = sql.format(houseID, yyyymmdd, context[:10].replace("'", "''"))
             cur.execute(sql)
             cnt, liveID = cur.fetchone()
             if cnt == 0:

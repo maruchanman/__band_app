@@ -91,3 +91,6 @@ houseID,ctg,name,prefacture,url,box
 93,a,北堀江club vision,大阪,http://vijon.jp/live.html?y=%4d&m=%d,.centerCont
 94,a,難波BEARS,大阪,http://namba-bears.main.jp/schedule/%4d/%d.html,table[width="590"] tr
 95,a,心斎橋BIGCAT,大阪,http://bigcat-live.com/%4d/%s,.schedule-wrap
+96,b,京都METRO,京都,http://www.metro.ne.jp/schedule/%4d/%s/index.html,<li class="day:<!-- #list -->
+97,a,難波メレ,大阪,http://namba-mele.com/schedule/%4d%s.html,.sche_wrap
+98,a,神戸VARIT,兵庫,http://www.varit.jp/liveschedule.html?year=%4d&month=%s,#top_left2 > table > tr

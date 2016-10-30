@@ -37,9 +37,12 @@ class Rape():
         for houseID, data in df.iterrows():
             live = {
                 "houseID": houseID, "year": self.year, "month": self.month}
-            soup = self._croll(data)
-            live["data"] = self._extract(soup, data) if soup else []
-            arr.append(live)
+            try:
+                soup = self._croll(data)
+                live["data"] = self._extract(soup, data) if soup else []
+                arr.append(live)
+            except:
+                print("rape on {} is failed".format(data["name"]))
         return arr
 
     def house_df(self):
@@ -152,13 +155,12 @@ class Rape():
                 band = d.split(',')[0].split('\t')[0]
                 if len(band) > 4:
                     for extracted in [x for x in html.split("/") if x.find(band) != -1]:
-                        if len(extracted.replace(band, "")) < len(band):
+                        if len(extracted.replace(band, "")) < 3:
                             r.append(band)
                 else:
                     if band in html.split("/"):
                         r.append(band)
         r = list(set(r)) if len(r) > 0 else []
-        print(r)
         return r
 
     def __fixdate(self, r):
