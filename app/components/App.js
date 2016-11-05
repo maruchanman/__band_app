@@ -2,82 +2,103 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  Navigator,
-  TouchableWithoutFeedback
+  TabBarIOS
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import LiveList from './LiveList.js';
-import LivePage from './LivePage.js';
-import BandPage from './BandPage.js';
+import DeviceInfo from 'react-native-device-info';
+import Search from './Search.js';
+import Like from './Like.js';
 
-const routeMapper = {
-  LeftButton: (route, navigator, index, navState) => {
-    if (index != 0){
-      return (
-        <TouchableWithoutFeedback onPress={navigator.pop}>
-          <Icon name="chevron-left" size={20} color="gray" style={styles.icon}/>
-        </TouchableWithoutFeedback>
-      )
-    } else {
-      return null
-    }
-  },
-  RightButton: (route, navigator, index, navState) => {
-    if (index == 0){
-      return (
-        <TouchableWithoutFeedback onPress={() => navigator.replace({
-            name: "LiveList", visible: route.visible ? false : true, date: route.date
-          })
-        }>
-          <Icon name="calendar" size={20} color="gray" style={styles.icon}/>
-        </TouchableWithoutFeedback>
-      )
-    } else {
-      return null
-    }
-  },
-  Title: (route, navigator, index, navState) => {
-    return null
+class TabIcon extends Component {
+  render() {
+    return (
+      <Icon name="calendar" size={14} color="orange" />
+    )
   }
-};
+}
 
 export default class App extends Component {
 
-  renderScene(route, navigator) {
-    if (route.name == "LiveList") {
-      return <LiveList navigator={navigator} visible={route.visible} date={route.date}/>
-    } else if (route.name == "LivePage") {
-      return <LivePage navigator={navigator} live={route.live}/>
-    } else if (route.name == "BandPage") {
-      return <BandPage navigator={navigator} band={route.band}/>
+  constructor() {
+    super();
+    this.state = {
+      selectedTab: "Search",
+      likes: []
     }
+    this.toggleLike = this.toggleLike.bind(this);
+  }
+
+  toggleLike(bandID) {
+    var url = 'http://160.16.217.99/b/like';
+    var data = new FormData()
+    data.append("userID", DeviceInfo.getUniqueID())
+    data.append("bandID", bandID)
+    fetch(url, {
+      method: "POST",
+      body: data
+    })
+      .then((response) => {
+        var newLikes = this.state.likes;
+        if (this.state.likes.indexOf(bandID) == -1) {
+          newLikes.push(bandID)
+        } else {
+          newLikes.splice(this.state.likes.indexOf(bandID), 1)
+        }
+        this.setState({likes: newLikes})
+      })
+  }
+
+  _loadLikes() {
+    var url = 'http://160.16.217.99/b/likes/' + DeviceInfo.getUniqueID();
+    fetch(url)
+      .then((response) => response.json())
+      .then((jsonData) => this.setState({likes: jsonData}))
+  }
+
+  componentDidMount() {
+    this._loadLikes()
   }
 
   render() {
     return (
-      <Navigator
-        initialRoute={{name: 'LiveList', visible: false, date: new Date()}}
-        renderScene={this.renderScene}
-        navigationBar={
-          <Navigator.NavigationBar
-            routeMapper={routeMapper}
-            style={styles.navBar}
-          />
-        }
-      />
+      <TabBarIOS
+        unselectedTabTintColor="gray"
+        tintColor="darkorange"
+        barTintColor="whitesmoke"
+        style={styles.tabBar}
+        >
+        <Icon.TabBarItem
+          title=""
+          iconName="home"
+          selected={this.state.selectedTab == 'Search'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'Search'
+            });
+          }}
+        >
+          <Search toggleLike={this.toggleLike} likes={this.state.likes} />
+        </Icon.TabBarItem>
+        <Icon.TabBarItem
+          title=""
+          iconName="heart"
+          selected={this.state.selectedTab == 'Like'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'Like'
+            });
+          }}
+        >
+          <Like likes={this.state.likes} toggleLike={this.toggleLike}/>
+        </Icon.TabBarItem>
+      </TabBarIOS>
     )
   }
 
 }
 
-const styles = {
-  navBar: {
-    backgroundColor: 'whitesmoke',
-  },
-  navBar: {
-    backgroundColor: 'whitesmoke',
-  },
-  icon: {
-    padding: 10,
-  },
+var styles = {
+  tabBar: {
+    backgroundColor: 'whitesmoke'
+  }
 }

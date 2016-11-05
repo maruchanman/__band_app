@@ -6,6 +6,7 @@ import {
   Image,
   TouchableWithoutFeedback
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class LiveRow extends React.Component {
 
@@ -22,10 +23,14 @@ export default class LiveRow extends React.Component {
         <TouchableWithoutFeedback
           onPress={() => this.props.push({name: "LivePage", live: this.props.live})}>
           <View style={styles.item}>
-            <Image source={{uri: this.props.live.image}} style={styles.image} />
             <View style={styles.textBox}>
               <Text style={styles.liveHouse}>{this.props.live.name}</Text>
-              <Text style={styles.yyyymmdd}>{ymd}({w})</Text>
+              <View style={styles.inline}>
+                <Icon color="darkorange" size={14} name="map-marker"/>
+                <Text style={styles.inlineText}>{this.props.live.prefacture}</Text>
+                <Icon color="darkorange" size={14} name="calendar-o"/>
+                <Text style={styles.inlineText}>{ymd}({w})</Text>
+              </View>
               {this.props.live.act.map((band) => (
                 <Text key={band.bandID} style={styles.act}>{band.name}</Text>
               ))}
@@ -42,27 +47,27 @@ const styles = StyleSheet.create({
   row: {
     minHeight: 120,
     margin: 5,
-    padding: 5,
+    padding: 10,
     backgroundColor: 'white'
   },
-  item: {
-    flex: 1,
-    flexDirection: 'row'
-  },
-  image: {
-    height: 110,
-    width: 110,
-    resizeMode: 'cover'
-  },
   textBox: {
-    paddingVertical: 5,
-    paddingHorizontal: 10
+    paddingHorizontal: 15,
+    paddingVertical: 5
+  },
+  item: {
   },
   liveHouse: {
     fontWeight: 'bold',
-    fontSize: 16
+    fontSize: 18,
+    marginBottom: 10,
   },
-  yyyymmdd: {
+  inline: {
+    flex: 1,
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  inlineText: {
+    marginHorizontal: 4,
     fontWeight: 'bold',
     fontSize: 14,
   },

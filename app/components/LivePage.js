@@ -30,15 +30,17 @@ export default class LivePage extends React.Component {
         <View style={styles.box}>
           <Text style={styles.livehouse}>{this.props.live.name}</Text>
           <View style={styles.info}>
+            <Icon color="darkorange" size={14} name="map-marker"/>
+            <Text style={styles.infoText}>{this.props.live.prefacture}</Text>
+            <Icon color="darkorange" size={14} name="calendar-o"/>
             <Text style={styles.infoText}>{y}/{m}/{d}({w})</Text>
           </View>
           <View style={styles.info}>
-            <Icon color="black" size={16} name="clock-o"/>
+            <Icon color="black" size={14} name="clock-o"/>
             <Text style={styles.infoText}>{this.props.live.open}</Text>
-            <Icon color="black" size={16} name="jpy"/>
+            <Icon color="black" size={14} name="jpy"/>
             <Text style={styles.infoText}>{this.props.live.ticket}</Text>
           </View>
-          <Image source={{uri: this.props.live.image}} style={styles.image}/>
           <Text style={styles.context}>{this.props.live.context}</Text>
         </View>
         <View style={styles.box}>
@@ -63,7 +65,6 @@ export default class LivePage extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 60,
     backgroundColor: 'whitesmoke',
   },
   box: {
@@ -73,35 +74,28 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   livehouse: {
-    fontSize: 22,
+    fontSize: 18,
+    marginBottom: 10,
     fontWeight: 'bold'
-  },
-  image: {
-    flex: 1,
-    minHeight: 200
   },
   info: {
     flex: 0,
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 10,
   },
   infoText: {
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 14,
+    marginHorizontal: 4
   },
   context: {
     color: 'gray',
     fontSize: 14,
   },
-  label: {
-    fontSize: 18,
-    paddingVertical: 2,
-    paddingHorizontal: 10,
-    fontWeight: 'bold'
-  },
   link: {
     paddingVertical: 10,
-    fontSize: 16,
+    fontSize: 14,
     alignSelf: 'center',
     color: 'gray'
   }

@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import YouTube from 'react-native-youtube';
 import LiveRow from './LiveRow.js';
 
@@ -39,7 +40,9 @@ export default class BandPage extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <View style={styles.box}>
-          <Text style={styles.bandName}>{this.props.band.name}</Text>
+          <View style={styles.bandLabel}>
+            <Text style={styles.bandName}>{this.props.band.name}</Text>
+          </View>
           <YouTube
             videoId={this.props.band.video}
             playsInline={true}
@@ -60,7 +63,6 @@ export default class BandPage extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 60,
     backgroundColor: 'whitesmoke',
   },
   box: {
@@ -75,14 +77,9 @@ const styles = StyleSheet.create({
   bandName: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginVertical: 10
   },
-  bandBox: {
-    flex: 1,
-    flexDirection: 'column',
-    margin: 5,
-    padding: 5,
-    backgroundColor: 'white'
+  bandLabel: {
+    paddingVertical: 10
   },
   scheduleBox: {
     margin: 5,

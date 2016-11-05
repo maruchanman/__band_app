@@ -20,22 +20,20 @@ export default class LiveList extends React.Component {
     super(props);
     this.state = {
       lives: [],
-      date: props.date
+      date: props.date,
+      loading: false
     }
   }
 
   _loadLives(date) {
-    var url = 'http://160.16.217.99/b/lives/' + date.getFullYear() + '/' + date.getMonth() + '/' + date.getDate();
+    var url = 'http://160.16.217.99/b/lives/' + date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
     fetch(url)
       .then((response) => response.json())
-      .then((responseData) => {
-        this.setState({
-          lives: responseData
-        })
-      })
+      .then((responseData) => this.setState({lives: responseData, loading: false}))
   }
 
   componentDidMount() {
+    this.setState({loading: true});
     this._loadLives(this.state.date);
   }
 
@@ -50,6 +48,10 @@ export default class LiveList extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
+        <View style={this.state.loading ? styles.loading : styles.hidden}>
+          <Icon style={styles.loadingText} name="spinner" size={40} color="gray"/>
+          <Text style={styles.loadingText}>Loading...</Text>
+        </View>
         <Modal
           animationType={"slide"}
           visible={this.props.visible}
@@ -83,8 +85,23 @@ export default class LiveList extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 60,
     backgroundColor: 'whitesmoke',
+  },
+  loading: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center'
+  },
+  loadingText: {
+    textAlign: 'center',
+    color: 'gray',
+    fontWeight: 'bold',
+    height: 70,
+    fontSize: 20
+  },
+  hidden: {
+    height: 0,
+    opacity: 0
   },
   modal: {
     flex: 1,

@@ -35,6 +35,6 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 14,
   },
 });
