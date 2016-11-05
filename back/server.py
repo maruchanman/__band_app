@@ -56,6 +56,14 @@ def post_band():
         'band.html', band=band, bandID=idx, video=handle._video(band))
 
 
+@app.route('/b/like', methods=['POST'])
+def post_like():
+    userID = request.form["userID"]
+    bandID = request.form["bandID"]
+    handle.update_like(userID, bandID)
+    return jsonify({"status": "ok"})
+
+
 # - select  -----------------------------
 
 fetch = Fetch("remote")
@@ -67,6 +75,13 @@ def fetch_lives(year, month, day):
     data = fetch.execute("lives", {"date": date.strftime('%Y%m%d')})
     for ix, dic in enumerate(data):
         data[ix]["url"] = _fix_url(dic["url"], dic["yyyymmdd"])
+    return jsonify(data)
+
+
+@app.route('/b/likes/<userID>')
+def fetch_likes(userID):
+    data = fetch.execute("likes", userID)
+    data = data[0] if len(data) > 0 else []
     return jsonify(data)
 
 
@@ -90,6 +105,13 @@ def fetch_schedule(bandID):
         data[ix]["url"] = _fix_url(dic["url"], dic["yyyymmdd"])
     return jsonify(data)
 
+@app.route('/b/prefers', methods=['POST'])
+def fetch_prefers():
+    userID = request.form["userID"]
+    data = fetch.execute("prefers", userID)
+    for ix, dic in enumerate(data):
+        data[ix]["url"] = _fix_url(dic["url"], dic["yyyymmdd"])
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run(port=9998)

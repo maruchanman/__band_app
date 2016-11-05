@@ -26,13 +26,13 @@ class Insert(Connect):
     def insert_band(self, name, video):
         conn = self.connect(self.db)
         cur = conn.cursor()
-        sql = "SELECT count(*) FROM band WHERE name = '{}'".format(name.replace("'", "''"))
-        cur.execute(sql)
+        sql = "SELECT count(*) FROM band WHERE name = %s"
+        cur.execute(sql, (name.replace("'", "''"),))
         if cur.fetchone()[0] == 0:
             sql = (
-                "INSERT INTO band (name, video) VALUES ('{0}', '{1}')"
-            ).format(name.replace("'", "''"), video)
-            cur.execute(sql)
+                "INSERT INTO band (name, video) VALUES (%s, %s)"
+            )
+            cur.execute(sql, (name.replace("'", "''"), video))
         conn.commit()
         conn.close()
 
@@ -41,6 +41,28 @@ class Insert(Connect):
         cur = conn.cursor()
         for houseID, house in df.iterrows():
             self._house(houseID, house, cur)
+        conn.commit()
+        conn.close()
+
+    def update_like(self, userID, bandID):
+        conn = self.connect(self.db)
+        cur = conn.cursor()
+        sql = (
+            "SELECT count(*), bandID FROM prefer WHERE "
+            "bandID = %s AND userID = %s"
+        )
+        cur.execute(sql, (bandID, userID))
+        cnt, _ = cur.fetchone()
+        if cnt == 0:
+            sql = (
+                "INSERT INTO prefer (userID, bandID) VALUES (%s, %s)"
+            )
+            cur.execute(sql, (userID, bandID))
+        else:
+            sql = (
+                "DELETE FROM prefer WHERE userID = %s AND bandID = %s"
+            )
+            cur.execute(sql, (userID, bandID))
         conn.commit()
         conn.close()
   
@@ -55,28 +77,26 @@ class Insert(Connect):
             ticket = live["price"][0] if len(live["price"]) > 0 else "NULL"
             sql = (
                 "SELECT count(*), liveID FROM live WHERE "
-                "houseID = {0} AND yyyymmdd = {1} AND context like '{2}%'"
+                "houseID = %s AND yyyymmdd = %s"
             )
-            sql = sql.format(houseID, yyyymmdd, context[:10].replace("'", "''"))
-            cur.execute(sql)
+            cur.execute(sql, (houseID, yyyymmdd))
             cnt, liveID = cur.fetchone()
             if cnt == 0:
                 sql = (
                     "INSERT INTO live (houseID, context, open, ticket, image, yyyymmdd) "
-                    "VALUES ({0}, '{1}', '{2}', {3}, '{4}', {5})"
+                    "VALUES (%s, %s, %s, %s, %s, %s)"
                 )
-                sql = sql.format(
-                    houseID, context, time,
-                    ticket, live["image"].replace("'", "''"), yyyymmdd)
-                cur.execute(sql)
+                cur.execute(
+                    sql,
+                    (houseID, context, time, ticket, live["image"].replace("'", "''"), yyyymmdd)
+                )
                 return cur.lastrowid
             else:
                 sql = (
-                    "UPDATE live SET context = '{0}', ticket = {1}, open = '{2}' "
-                    "WHERE liveID = {3}"
+                    "UPDATE live SET context = %s, ticket = %s, open = %s "
+                    "WHERE liveID = %s"
                 )
-                sql = sql.format(context, ticket, time, liveID)
-                cur.execute(sql)
+                cur.execute(sql, (context, ticket, time, liveID))
                 return liveID
         else:
             return False
@@ -84,20 +104,20 @@ class Insert(Connect):
     def _act(self, liveID, act, cur):
         for band in act:
             sql = (
-                "SELECT count(*), bandID FROM band WHERE name = '{}'"
-            ).format(band.replace("'", "''"))
-            cur.execute(sql)
+                "SELECT count(*), bandID FROM band WHERE name = %s"
+            )
+            cur.execute(sql, (band.replace("'", "''"), ))
             cnt, bandID = cur.fetchone()
             if cnt > 0:
                 sql = (
-                    "SELECT count(*) FROM act WHERE bandID = {0} AND liveID = {1}"
-                ).format(bandID, liveID)
-                cur.execute(sql)
+                    "SELECT count(*) FROM act WHERE bandID = %s AND liveID = %s"
+                )
+                cur.execute(sql, (bandID, liveID))
                 if cur.fetchone()[0] == 0:
                     sql = (
-                        "INSERT INTO act (liveID, bandID) VALUES ({0}, {1})"
-                    ).format(liveID, bandID)
-                    cur.execute(sql)
+                        "INSERT INTO act (liveID, bandID) VALUES (%s, %s)"
+                    )
+                    cur.execute(sql, (liveID, bandID))
 
     def _video(self, band):
         url = "http://video.search.yahoo.co.jp/search?p=%s&ei=UTF-8&rkf=1&oq="
@@ -116,14 +136,14 @@ class Insert(Connect):
 
     def _house(self, houseID, house, cur):
         name = house["name"].replace("'", "''")
-        sql = "SELECT count(1) FROM house WHERE houseID = {}".format(houseID)
-        cur.execute(sql)
+        sql = "SELECT count(1) FROM house WHERE houseID = %s"
+        cur.execute(sql, (houseID,))
         if cur.fetchone()[0] == 0:
             sql = (
                 "INSERT INTO house (houseID, prefacture, name, url)"
-                " VALUES ({0}, '{1}', '{2}', '{3}')"
-            ).format(houseID, house["prefacture"], name, house["url"])
-            cur.execute(sql)
+                " VALUES (%s, %s, %s, %s)"
+            )
+            cur.execute(sql, (houseID, house["prefacture"], name, house["url"]))
 
     def _zerohead(self, number):
         return str(number) if number > 9 else '0{}'.format(number)
