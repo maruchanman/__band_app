@@ -29,7 +29,7 @@ const routeMapper = (props) => ({
           <Icon
             name="heart"
             size={20}
-            color={props.likes.indexOf(route.band.bandID) != -1 ? "darkorange" : "gray"}
+            color={props.likes.indexOf(route.band.bandID) != -1 ? "red" : "gray"}
             style={styles.icon}/>
         </TouchableWithoutFeedback>
       )

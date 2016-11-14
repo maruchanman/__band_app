@@ -12,23 +12,24 @@ import BandPage from './BandPage.js';
 
 const routeMapper = props => ({
   LeftButton: (route, navigator, index, navState) => {
-    if (index != 0){
+    if (index == 0){
+      return (
+        <TouchableWithoutFeedback onPress={() => props.toggleModal("search")}>
+          <Icon name="search" size={20} color="gray" style={styles.icon}/>
+        </TouchableWithoutFeedback>
+      )
+    } else {
       return (
         <TouchableWithoutFeedback onPress={navigator.pop}>
           <Icon name="chevron-left" size={20} color="gray" style={styles.icon}/>
         </TouchableWithoutFeedback>
       )
-    } else {
-      return null
     }
   },
   RightButton: (route, navigator, index, navState) => {
     if (index == 0){
       return (
-        <TouchableWithoutFeedback onPress={() => navigator.replace({
-            name: "LiveList", visible: route.visible ? false : true, date: route.date
-          })
-        }>
+        <TouchableWithoutFeedback onPress={() => props.toggleModal("calendar")}>
           <Icon name="calendar" size={20} color="gray" style={styles.icon}/>
         </TouchableWithoutFeedback>
       )
@@ -38,7 +39,7 @@ const routeMapper = props => ({
           <Icon
             name="heart"
             size={20}
-            color={props.likes.indexOf(route.band.bandID) != -1 ? "darkorange" : "gray"}
+            color={props.likes.indexOf(route.band.bandID) != -1 ? "#ff0000ff" : "gray"}
             style={styles.icon}/>
         </TouchableWithoutFeedback>
       )
@@ -55,7 +56,7 @@ export default class Search extends Component {
 
   renderScene(route, navigator) {
     if (route.name == "LiveList") {
-      return <LiveList navigator={navigator} visible={route.visible} date={route.date}/>
+      return <LiveList navigator={navigator} date={route.date} {...route.passProps}/>
     } else if (route.name == "LivePage") {
       return <LivePage navigator={navigator} live={route.live}/>
     } else if (route.name == "BandPage") {
@@ -66,7 +67,14 @@ export default class Search extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{name: 'LiveList', visible: false, date: new Date()}}
+        initialRoute={{
+          name: 'LiveList',
+          date: new Date(),
+          passProps: {
+            toggleModal: this.props.toggleModal,
+            visibleModal: this.props.visibleModal
+          }
+        }}
         renderScene={this.renderScene}
         style={styles.wrapper}
         navigationBar={

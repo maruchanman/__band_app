@@ -9,13 +9,6 @@ import DeviceInfo from 'react-native-device-info';
 import Search from './Search.js';
 import Like from './Like.js';
 
-class TabIcon extends Component {
-  render() {
-    return (
-      <Icon name="calendar" size={14} color="orange" />
-    )
-  }
-}
 
 export default class App extends Component {
 
@@ -23,9 +16,11 @@ export default class App extends Component {
     super();
     this.state = {
       selectedTab: "Search",
-      likes: []
+      likes: [],
+      visibleModal: {calendar: false, search: false}
     }
     this.toggleLike = this.toggleLike.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   toggleLike(bandID) {
@@ -48,11 +43,21 @@ export default class App extends Component {
       })
   }
 
+  toggleModal(modalName) {
+    var visibleModal = this.state.visibleModal;
+    visibleModal[modalName] = visibleModal[modalName] ? false : true;
+    this.setState({visibleModal: visibleModal});
+  }
+
   _loadLikes() {
     var url = 'http://160.16.217.99/b/likes/' + DeviceInfo.getUniqueID();
     fetch(url)
       .then((response) => response.json())
       .then((jsonData) => this.setState({likes: jsonData}))
+  }
+
+  changeTab(tabName) {
+    this.setState({selectedTab: tabName})
   }
 
   componentDidMount() {
@@ -63,7 +68,7 @@ export default class App extends Component {
     return (
       <TabBarIOS
         unselectedTabTintColor="gray"
-        tintColor="darkorange"
+        tintColor="#ff0000ff"
         barTintColor="whitesmoke"
         style={styles.tabBar}
         >
@@ -71,25 +76,23 @@ export default class App extends Component {
           title=""
           iconName="home"
           selected={this.state.selectedTab == 'Search'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'Search'
-            });
-          }}
+          onPress={() => this.changeTab("Search")}
         >
-          <Search toggleLike={this.toggleLike} likes={this.state.likes} />
+          <Search
+            likes={this.state.likes}
+            toggleLike={this.toggleLike}
+            toggleModal={this.toggleModal}
+            visibleModal={this.state.visibleModal}/>
         </Icon.TabBarItem>
         <Icon.TabBarItem
           title=""
           iconName="heart"
           selected={this.state.selectedTab == 'Like'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'Like'
-            });
-          }}
+          onPress={() => this.changeTab("Like")}
         >
-          <Like likes={this.state.likes} toggleLike={this.toggleLike}/>
+          <Like
+            likes={this.state.likes}
+            toggleLike={this.toggleLike}/>
         </Icon.TabBarItem>
       </TabBarIOS>
     )

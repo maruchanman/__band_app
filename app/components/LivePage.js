@@ -15,13 +15,9 @@ export default class LivePage extends React.Component {
 
   render() {
 
-    console.log(this.props.live);
-
     var dateStr = String(this.props.live.yyyymmdd);
-    var y = dateStr.slice(0, 4);
-    var m = dateStr.slice(4, -2);
-    var d = dateStr.slice(-2,);
-    var date = new Date(Number(y), Number(m), Number(d));
+    var ymd = dateStr.slice(0, 4) + '/' + dateStr.slice(4, -2) + '/' + dateStr.slice(-2,);
+    var date = new Date(ymd);
     let weeks = ["日", "月", "火", "水", "木", "金", "土"];
     var w = weeks[date.getDay()];
 
@@ -30,10 +26,10 @@ export default class LivePage extends React.Component {
         <View style={styles.box}>
           <Text style={styles.livehouse}>{this.props.live.name}</Text>
           <View style={styles.info}>
-            <Icon color="darkorange" size={14} name="map-marker"/>
+            <Icon color="gray" size={14} name="map-marker"/>
             <Text style={styles.infoText}>{this.props.live.prefacture}</Text>
-            <Icon color="darkorange" size={14} name="calendar-o"/>
-            <Text style={styles.infoText}>{y}/{m}/{d}({w})</Text>
+            <Icon color="gray" size={14} name="calendar-o"/>
+            <Text style={styles.infoText}>{ymd}({w})</Text>
           </View>
           <View style={styles.info}>
             <Icon color="black" size={14} name="clock-o"/>
@@ -43,12 +39,15 @@ export default class LivePage extends React.Component {
           </View>
           <Text style={styles.context}>{this.props.live.context}</Text>
         </View>
-        <View style={styles.box}>
-          <Text style={{color: 'gray'}}>出演</Text>
-          {this.props.live.act.map((band) => (
-            <BandRow key={band.bandID} band={band} push={this.props.navigator.push}/>
-          ))}
-        </View>
+          <View style={styles.box}>
+            <View style={styles.info}>
+              <Text style={{color: 'red'}}>◆</Text>
+              <Text style={{color: 'gray'}}>出演</Text>
+            </View>
+            {this.props.live.act.map((band) => (
+              <BandRow key={band.bandID} band={band} push={this.props.navigator.push}/>
+            ))}
+          </View>
         <View>
           <TouchableWithoutFeedback onPress={() => Linking.openURL(this.props.live.url)}>
             <View style={styles.box}>

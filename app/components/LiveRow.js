@@ -26,13 +26,16 @@ export default class LiveRow extends React.Component {
             <View style={styles.textBox}>
               <Text style={styles.liveHouse}>{this.props.live.name}</Text>
               <View style={styles.inline}>
-                <Icon color="darkorange" size={14} name="map-marker"/>
+                <Icon color="gray" size={14} name="map-marker"/>
                 <Text style={styles.inlineText}>{this.props.live.prefacture}</Text>
-                <Icon color="darkorange" size={14} name="calendar-o"/>
+                <Icon color="gray" size={14} name="calendar-o"/>
                 <Text style={styles.inlineText}>{ymd}({w})</Text>
               </View>
               {this.props.live.act.map((band) => (
-                <Text key={band.bandID} style={styles.act}>{band.name}</Text>
+                <View style={styles.inline}>
+                  <Text style={styles.bandMark}>◆</Text>
+                  <Text key={band.bandID} style={styles.act}>{band.name}</Text>
+                </View>
               ))}
             </View>
           </View>
@@ -73,6 +76,9 @@ const styles = StyleSheet.create({
   },
   act: {
     fontSize: 14,
-    color: 'gray'
+  },
+  bandMark: {
+    fontSize: 12,
+    color: "red"
   }
 });

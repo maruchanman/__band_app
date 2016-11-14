@@ -11,7 +11,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 export default class BandRow extends React.Component {
 
   render() {
-
     return (
       <TouchableWithoutFeedback
         onPress={() => this.props.push({name: "BandPage", band: this.props.band})}>
