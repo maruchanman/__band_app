@@ -77,9 +77,9 @@ class Insert(Connect):
             ticket = live["price"][0] if len(live["price"]) > 0 else "NULL"
             sql = (
                 "SELECT count(*), liveID FROM live WHERE "
-                "houseID = %s AND yyyymmdd = %s"
+                "houseID = %s AND yyyymmdd = %s AND open = %s"
             )
-            cur.execute(sql, (houseID, yyyymmdd))
+            cur.execute(sql, (houseID, yyyymmdd, time))
             cnt, liveID = cur.fetchone()
             if cnt == 0:
                 sql = (

@@ -1,16 +1,19 @@
 # coding: utf-8
 import os
+import re
 import random
 import datetime
 import pandas as pd
 from flask import Flask, render_template, jsonify, after_this_request, request
 from modules.util.insert import Insert
 from modules.util.fetch import Fetch
+from modules.util.conn import Connect
 
 app = Flask(__name__)
 CURRENTPATH = os.path.dirname(__file__)
 handle = Insert("remote")
-
+fetch = Fetch("remote")
+db = Connect()
 
 def _fix_url(url, yyyymmdd):
     year, month = [int(str(yyyymmdd)[:4]), int(str(yyyymmdd)[4:6])]
@@ -27,33 +30,46 @@ def confirm():
     return "Flask server is running !!"
 
 
-@app.route('/b/check', methods=['GET'])
+@app.route('/b/check', methods=['GET', 'POST'])
 def check_band():
-    df = pd.read_csv('./static/check.csv', index_col=0)
-    idx = df[df.flag.isnull()].index[0]
-    band = df.ix[idx].band
+    with open('./check/bands.txt', 'r') as f:
+        bands = f.read()
+        bands = bands.split('\n')
+    if request.method == 'POST':
+        band = request.form["name"]
+        bands.remove(band)
+        if request.form["flag"] == "YES":
+            handle.insert_band(band, request.form["video"])
+        with open('./check/bands.txt', 'w') as f:
+            f.write('\n'.join(bands))
+    band = bands[0]
     return render_template(
-        'band.html', band=band, bandID=idx, video=handle._video(band))
+        'band.html', band=band, video=handle._video(band), N=len(bands))
 
 
-@app.route('/b/check', methods=['POST'])
-def post_band():
-    if request.form["flag"] == "allok":
-        flag = 1
-        insert = Insert("remote")
-        insert.insert_band(request.form["name"], request.form["video"])
-    elif request.form["flag"] == "ok":
-        flag = 0
-    else:
-        flag = -1
-    df = pd.read_csv('./static/check.csv', index_col=0)
-    df.ix[int(request.form["band_id"]), "flag"] = flag
-    df.to_csv('./static/check.csv', encoding="utf8")
-    data = df[df.flag.isnull()]
-    idx = data.index[0]
-    band = df.ix[idx].band
+@app.route('/b/bandadd', methods=['GET', 'POST'])
+def band_add():
+    if request.method == 'POST':
+        bands = request.form.getlist("bands")
+        liveID = request.form["liveID"]
+        with open("./check/bands.txt", "a") as f:
+            for band in bands:
+                f.write("{}\n".format(band))
+        sql = "UPDATE live SET checked = 1 WHERE liveID = %s"
+        conn = db.connect("remote")
+        cur = conn.cursor()
+        cur.execute(sql, (liveID, ))
+        conn.commit()
+        conn.close()
+    sql = (
+        "SELECT liveID, context FROM live WHERE checked IS NULL "
+        "AND context IS NOT NULL ORDER BY liveID DESC LIMIT 1"
+    )
+    liveID, context = fetch.fetch_one(sql)
+    context = re.sub("\(.+?\)", "", context).replace("■", "").replace(":", "/")
+    bands = [x for x in context.split('/') if len(x) < 20 and x != '']
     return render_template(
-        'band.html', band=band, bandID=idx, video=handle._video(band))
+        'bandadd.html', bands=bands, liveID=liveID)
 
 
 @app.route('/b/like', methods=['POST'])
@@ -62,11 +78,6 @@ def post_like():
     bandID = request.form["bandID"]
     handle.update_like(userID, bandID)
     return jsonify({"status": "ok"})
-
-
-# - select  -----------------------------
-
-fetch = Fetch("remote")
 
 
 @app.route('/b/lives/<int:year>/<int:month>/<int:day>')
@@ -81,7 +92,6 @@ def fetch_lives(year, month, day):
 @app.route('/b/likes/<userID>')
 def fetch_likes(userID):
     data = fetch.execute("likes", userID)
-    data = data[0] if len(data) > 0 else []
     return jsonify(data)
 
 
@@ -111,6 +121,12 @@ def fetch_prefers():
     data = fetch.execute("prefers", userID)
     for ix, dic in enumerate(data):
         data[ix]["url"] = _fix_url(dic["url"], dic["yyyymmdd"])
+    return jsonify(data)
+
+@app.route('/b/search/<word>')
+def sub_search(word):
+    data = fetch.execute('search', word)
+    print(data);
     return jsonify(data)
 
 if __name__ == '__main__':

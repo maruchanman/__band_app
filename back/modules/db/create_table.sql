@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS gigs.live
   ticket char(4),
   image varchar(255),
   yyyymmdd int(8),
+  checked int(1),
   PRIMARY KEY (liveID)
 ) DEFAULT CHARSET=utf8;
 
