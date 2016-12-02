@@ -8,33 +8,42 @@ import {
   TouchableWithoutFeedback,
   Modal,
   DatePickerIOS,
-  ScrollView
+  ScrollView,
+  ActivityIndicator,
+  Dimensions
 } from 'react-native';
 import LiveRow from './LiveRow.js';
 import BandRow from './BandRow.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import CalendarPicker from 'react-native-calendar-picker';
 
 const today = new Date();
 
-class ModalCalendar extends React.Component {
+class ModalCalendarPicker extends React.Component {
   render() {
     return (
       <Modal
         animationType={"slide"}
         visible={this.props.visible}
       >
+        <View style={styles.modalHeader}>
+          <TouchableWithoutFeedback onPress={() => this.props.closeCalendar(this.props.toggleModal)}>
+            <View><Text style={styles.modalHeaderText}>OK</Text></View>
+          </TouchableWithoutFeedback>
+        </View>
         <View style={styles.modalCalendar}>
-          <DatePickerIOS
-            date={this.props.date}
-            mode="date"
+          <CalendarPicker 
+            selectedDate={this.props.date}
             onDateChange={(date) => this.props.setDate(date)}
-            minimumDate={today}
-            maximumDate={new Date(today.getFullYear(), today.getMonth() + 2, 0)}
+            screenWidth={Dimensions.get('window').width}
+            previousTitle="今月"
+            nextTitle="翌月"
+            selectedDayColor="#ff0000"
+            weekdays={['日', '月', '火' , '水', '木', '金', '土']}
+            minDate={today}
+            maxDate={new Date(today.getFullYear(), today.getMonth() + 2, 0)}
             style={styles.datePicker}
           />
-          <TouchableWithoutFeedback onPress={() => this.props.toggleModal("calendar")}>
-            <View><Text style={styles.footer}>OK</Text></View>
-          </TouchableWithoutFeedback>
         </View>
       </Modal>
     )
@@ -58,13 +67,19 @@ class ModalSearch extends React.Component {
             value={this.props.searchWord}
             style={styles.textInput}
             placeholder="バンド名"
+            autoCorrect={false}
+            autoFocus={true}
             placeholderTextColor="gray"
-            selectionColor="red"
-            onChangeText={(text) => this.props.inputText(text)}
-            onSubmitEditing={this.props.subSearch}
+            selectionColor="#ff0000"
+            onChangeText={this.props.inputText}
+            onSubmitEditing={this.props.search}
           />
-          <View style={this.props.searching ? styles.loading : styles.hidden}>
-            <Icon style={styles.loadingText} name="spinner" size={40} color="gray"/>
+          <View style={this.props.searching ? {} : styles.hidden}>
+            <ActivityIndicator
+              animating={true}
+              style={{height: 80}}
+              size="large"
+            />
           </View>
           <View style={this.props.searching ? styles.hidden : {}}>
             {this.props.searchResults.map((band) => (
@@ -86,8 +101,11 @@ class ModalSearch extends React.Component {
 
 const Loading = props => (
   <View style={props.loading ? styles.loading : styles.hidden}>
-    <Icon style={styles.loadingText} name="spinner" size={40} color="gray"/>
-    <Text style={styles.loadingText}>Loading...</Text>
+    <ActivityIndicator
+      animating={true}
+      style={{height: 80}}
+      size="large"
+    />
   </View>
 );
 
@@ -98,15 +116,17 @@ export default class LiveList extends React.Component {
     this.state = {
       lives: [],
       date: props.date,
-      searchWord: "",
       searchResults: [],
+      searchRawResults: [],
+      searchWord: "",
       loading: false,
       searching: false
     }
     this.setDate = this.setDate.bind(this);
     this.inputText = this.inputText.bind(this);
-    this.subSearch = this.subSearch.bind(this);
+    this.search = this.search.bind(this);
     this.selectBand = this.selectBand.bind(this);
+    this.closeCalendar = this.closeCalendar.bind(this);
   }
 
   _loadLives(date) {
@@ -122,24 +142,41 @@ export default class LiveList extends React.Component {
   }
 
   setDate(date) {
-    this.setState({date: date, lives: [], loading: true});
-    this._loadLives(date);
+    this.setState({date: date});
   }
 
-  subSearch() {
-    this.setState({searcing: true});
-    this.search(this.state.searchWord);
+  closeCalendar(toggleModal) {
+    this.setState({lives: [], loading: true});
+    this._loadLives(this.state.date);
+    toggleModal("calendar");
   }
-  
-  search(word) {
-    var url = 'http://160.16.217.99/b/search/' + word;
+
+  search() {
+    this.setState({searching: true});
+    var url = 'http://160.16.217.99/b/search/' + this.state.searchWord.substring(2, -1);
     fetch(url)
       .then((response) => response.json()) 
-      .then((responseData) => this.setState({searching: false, searchResults: responseData}))
+      .then((responseData) => {
+        var searchRawResults = responseData;
+        var filteredResults = searchRawResults.filter(
+          (band) => band.name.toUpperCase().indexOf(this.state.searchWord.toUpperCase()) != -1
+        );
+        this.setState({
+          searching: false, searchResults: filteredResults, searchRawResults: responseData})
+        })
   }
 
   inputText(word) {
-    this.setState({searchWord: word});
+    if(this.state.searchRawResults.length > 0) {
+      if(word.length > 1) {
+        this.setState({searchResults: this.state.searchRawResults.filter(
+          (band) => band.name.toUpperCase().indexOf(word.toUpperCase()) != -1
+        )})
+      } else {
+        this.setState({searchResults: [], searchRawResults: []})
+      }
+    }
+    this.setState({searchWord: word})
   }
 
   selectBand(band, navigator, toggleModal) {
@@ -152,23 +189,28 @@ export default class LiveList extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <Loading loading={this.state.loading}/>
-        <ModalCalendar
+        <ModalCalendarPicker
           date={this.state.date}
           setDate={this.setDate}
           visible={this.props.visibleModal.calendar}
-          toggleModal={this.props.toggleModal}/>
+          toggleModal={this.props.toggleModal}
+          closeCalendar={this.closeCalendar}/>
         <ModalSearch
           visible={this.props.visibleModal.search}
           toggleModal={this.props.toggleModal}
           searchResults={this.state.searchResults}
-          subSearch={this.subSearch}
           inputText={this.inputText}
           searching={this.state.searching}
-          searchWord={this.state.searchWord}
           selectBand={this.selectBand}
+          searchWord={this.state.searchWord}
+          search={this.search}
           navigator={this.props.navigator}/>
         {this.state.lives.map((live) => (
-          <LiveRow live={live} key={live.liveID} push={this.props.navigator.push}/>
+          <LiveRow
+            live={live}
+            key={live.liveID}
+            push={this.props.navigator.push}
+          />
         ))}
       </ScrollView>
     )
@@ -179,11 +221,6 @@ export default class LiveList extends React.Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'whitesmoke',
-  },
-  loading: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center'
   },
   loadingText: {
     textAlign: 'center',
@@ -197,7 +234,7 @@ const styles = StyleSheet.create({
     opacity: 0
   },
   modalCalendar: {
-    flex: 1,
+    flex: 11,
     backgroundColor: 'whitesmoke',
   },
   modalSearch: {
@@ -215,10 +252,6 @@ const styles = StyleSheet.create({
   modalHeaderText: {
     color: 'gray',
     textAlign: 'right'
-  },
-  datePicker: {
-    height: 200,
-    marginVertical: 100,
   },
   footer: {
     textAlign: 'center',

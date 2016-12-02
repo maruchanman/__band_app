@@ -26,6 +26,11 @@ export default class LivePage extends React.Component {
         <View style={styles.box}>
           <Text style={styles.livehouse}>{this.props.live.name}</Text>
           <View style={styles.info}>
+            <Icon color={this.props.color} size={7} name="circle" />
+            <Icon color={this.props.color} size={7} name="circle" />
+            <Icon color={this.props.color} size={7} name="circle" />
+          </View>
+          <View style={styles.info}>
             <Icon color="gray" size={14} name="map-marker"/>
             <Text style={styles.infoText}>{this.props.live.prefacture}</Text>
             <Icon color="gray" size={14} name="calendar-o"/>
@@ -37,17 +42,15 @@ export default class LivePage extends React.Component {
             <Icon color="black" size={14} name="jpy"/>
             <Text style={styles.infoText}>{this.props.live.ticket}</Text>
           </View>
+          <Text style={{color: 'gray', fontWeight: 'bold'}}>出演:</Text>
+          {this.props.live.act.map((band) => (
+            <BandRow key={band.bandID} band={band} push={this.props.navigator.push}/>
+          ))}
+        </View>
+        <View style={styles.box}>
+          <Text style={{color: 'gray', fontWeight: 'bold'}}>詳細:</Text>
           <Text style={styles.context}>{this.props.live.context}</Text>
         </View>
-          <View style={styles.box}>
-            <View style={styles.info}>
-              <Text style={{color: 'red'}}>◆</Text>
-              <Text style={{color: 'gray'}}>出演</Text>
-            </View>
-            {this.props.live.act.map((band) => (
-              <BandRow key={band.bandID} band={band} push={this.props.navigator.push}/>
-            ))}
-          </View>
         <View>
           <TouchableWithoutFeedback onPress={() => Linking.openURL(this.props.live.url)}>
             <View style={styles.box}>
@@ -74,14 +77,12 @@ const styles = StyleSheet.create({
   },
   livehouse: {
     fontSize: 18,
-    marginBottom: 10,
     fontWeight: 'bold'
   },
   info: {
-    flex: 0,
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 10
   },
   infoText: {
     fontWeight: 'bold',

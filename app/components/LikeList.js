@@ -4,6 +4,7 @@ import {
   Text,
   View,
   TouchableWithoutFeedback,
+  ActivityIndicator,
   ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -43,9 +44,15 @@ export default class LikeList extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <View style={this.state.loading ? styles.loading : styles.hidden}>
-          <Icon style={styles.loadingText} name="spinner" size={40} color="gray"/>
-          <Text style={styles.loadingText}>Loading...</Text>
+      <View style={this.state.loading ? styles.loading : styles.hidden}>
+        <ActivityIndicator
+          animating={true}
+          style={{height: 80}}
+          size="large"
+        />
+      </View>
+        <View style={this.state.prefers.length > 0 || this.state.loading ? styles.hidden : {}}>
+          <Text style={styles.caution}>好きなバンドをお気に入り登録してください</Text>
         </View>
         {this.state.prefers.map((live) => (
           <LiveRow live={live} key={live.liveID} push={this.props.navigator.push}/>
@@ -68,6 +75,10 @@ const styles = StyleSheet.create({
   hidden: {
     height: 0,
     opacity: 0
+  },
+  caution: {
+    color: 'gray',
+    marginHorizontal: 20
   },
   loadingText: {
     textAlign: 'center',

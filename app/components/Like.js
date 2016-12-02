@@ -48,7 +48,7 @@ export default class Search extends Component {
     if (route.name == "LikeList") {
       return <LikeList navigator={navigator} likes={route.likes}/>
     } else if (route.name == "LivePage") {
-      return <LivePage navigator={navigator} live={route.live}/>
+      return <LivePage navigator={navigator} live={route.live} color={route.color}/>
     } else if (route.name == "BandPage") {
       return <BandPage navigator={navigator} band={route.band}/>
     }

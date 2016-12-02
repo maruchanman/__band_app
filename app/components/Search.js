@@ -58,7 +58,7 @@ export default class Search extends Component {
     if (route.name == "LiveList") {
       return <LiveList navigator={navigator} date={route.date} {...route.passProps}/>
     } else if (route.name == "LivePage") {
-      return <LivePage navigator={navigator} live={route.live}/>
+      return <LivePage navigator={navigator} live={route.live} color={route.color}/>
     } else if (route.name == "BandPage") {
       return <BandPage navigator={navigator} band={route.band}/>
     }
@@ -72,7 +72,7 @@ export default class Search extends Component {
           date: new Date(),
           passProps: {
             toggleModal: this.props.toggleModal,
-            visibleModal: this.props.visibleModal
+            visibleModal: this.props.visibleModal,
           }
         }}
         renderScene={this.renderScene}

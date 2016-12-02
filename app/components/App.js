@@ -68,7 +68,7 @@ export default class App extends Component {
     return (
       <TabBarIOS
         unselectedTabTintColor="gray"
-        tintColor="#ff0000ff"
+        tintColor="#ff0000"
         barTintColor="whitesmoke"
         style={styles.tabBar}
         >

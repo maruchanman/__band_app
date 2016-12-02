@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import App from './components/App.js';
 
-export default class gigs extends Component {
+export default class showtime extends Component {
   render() {
     return (
       <App />
@@ -12,4 +12,4 @@ export default class gigs extends Component {
   }
 }
 
-AppRegistry.registerComponent('gigs', () => gigs);
+AppRegistry.registerComponent('showtime', () => showtime);
