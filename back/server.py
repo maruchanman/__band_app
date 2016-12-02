@@ -126,7 +126,6 @@ def fetch_prefers():
 @app.route('/b/search/<word>')
 def sub_search(word):
     data = fetch.execute('search', word)
-    print(data);
     return jsonify(data)
 
 if __name__ == '__main__':
