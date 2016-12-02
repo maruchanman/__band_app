@@ -28,10 +28,20 @@ class Fetch(Connect):
             ret = self._fetch_prefers(data, conn)
             for live in ret:
                 live["act"] = self._fetch_acts(live["liveID"], conn)
+        elif command == "search":
+            ret = self._sub_search(data, conn)
         else:
             ret = {}
         conn.close()
         return ret
+
+    def fetch_one(self, sql):
+        conn = self.connect(self.db)
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        record = cursor.fetchone()
+        conn.close()
+        return record
 
     def __encryption(self, bandID, name):
         pass
@@ -82,7 +92,8 @@ class Fetch(Connect):
             "SELECT bandID FROM prefer WHERE userID = %s"
         )
         cursor.execute(sql, (userID,))
-        return cursor.fetchall()
+        ret = cursor.fetchall()
+        return [x[0] for x in ret] if len(ret) > 0 else []
 
     def _fetch_prefers(self, userID, conn):
         today = (datetime.datetime.today() - datetime.timedelta(days=1)).strftime('%Y%m%d')
@@ -114,3 +125,9 @@ class Fetch(Connect):
         sql = "SELECT * FROM band WHERE bandID = %s"
         cursor.execute(sql, (bandID,))
         return cursor.fetchone()
+
+    def _sub_search(self, word, conn):
+        cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+        sql = "SELECT * FROM band WHERE LCASE(name) like %s ORDER BY LENGTH(name) LIMIT 10"
+        cursor.execute(sql, ('%' + word.lower() + '%',))
+        return list(cursor.fetchall())

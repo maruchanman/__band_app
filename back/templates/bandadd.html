@@ -1,0 +1,7 @@
+<form action="/b/bandadd" method="post">
+  <input type="hidden" value="{{ liveID }}" name="liveID">
+  {% for band in bands %}
+    <label style="display: block;margin: 20px 10px;font-size: 50px;"><input type="checkbox" value="{{ band }}" name="bands">{{ band }}</label>
+  {% endfor %}
+  <input type="submit" name="flag" value="ok" style="font-size: 50px;width: 80%;margin: 30px;">
+</form>

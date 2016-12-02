@@ -26,7 +26,7 @@ class Rape():
         self.video_url = (
             "http://video.search.yahoo.co.jp/search?p=%s&ei=UTF-8&rkf=1&oq=")
         self.today = datetime.date.today()
-        # update_band_dic()
+        update_band_dic()
 
     def set(self, year, month):
         self.year = year
@@ -150,11 +150,15 @@ class Rape():
     def __extract_band(self, html):
         tagger = MeCab.Tagger('-u {}/bands.dic'.format(DIC_DIR))
         r = []
+        html = re.sub('\(.+?\)', '', html)
         for d in tagger.parse(html).split('\n'):
             if d.split(',')[-1] == 'バンド':
                 band = d.split(',')[0].split('\t')[0]
-                if len(band) > 4:
-                    for extracted in [x for x in html.split("/") if x.find(band) != -1]:
+                for extracted in [x for x in html.split("/") if x.find(band) != -1]:
+                    if len(band) > 4:
+                        if len(extracted.replace(band, "")) < len(band):
+                            r.append(band)
+                    else:
                         if len(extracted.replace(band, "")) < 3:
                             r.append(band)
                 else:

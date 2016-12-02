@@ -1,20 +1,11 @@
 <h1 style="font-size: 80px;">{{ band }}</h1>
+<p>残り：{{ N }}</p>
 
 <iframe src="http://www.youtube.com/embed/{{video}}?rel=0" frameborder="0" style="width: 800px; height: 600px;"></iframe>
 
 <form action="/b/check" method="post">
-  <input type="hidden" name="band_id" value="{{ bandID }}">
   <input type="hidden" name="name" value="{{ band }}">
   <input type="hidden" name="video" value="{{ video }}">
-  <input type="submit" name="flag" value="allok" style="font-size: 50px;width: 80%;margin: 30px;">
-</form>
-
-<form action="/b/check" method="post">
-  <input type="hidden" name="band_id" value="{{ bandID }}">
-  <input type="submit" name="flag" value="ok" style="font-size: 50px;width: 80%;margin: 30px;">
-</form>
-
-<form action="/b/check" method="post">
-  <input type="hidden" name="band_id" value="{{ bandID }}">
-  <input type="submit" name="flag" value="bad" style="font-size: 50px;width: 80%; margin: 30px;">
+  <input type="submit" name="flag" value="YES" style="font-size: 50px;width: 80%;margin: 30px;">
+  <input type="submit" name="flag" value="NO" style="font-size: 50px;width: 80%; margin: 30px;">
 </form>
