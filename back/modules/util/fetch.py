@@ -138,18 +138,19 @@ class Fetch(Connect):
     def _fetch_todays_pickup(self, data, conn):
         cursor = conn.cursor()
         sql = (
-          "SELECT act.liveID, count(act.liveID) FROM act "
-          "INNER JOIN live ON act.liveID = live.liveID "
-          "WHERE live.yyyymmdd = %s GROUP BY 1 ORDER BY 2 DESC LIMIT 1"
+            "SELECT * FROM "
+            "(SELECT act.liveID AS liveID, COUNT(act.liveID) AS cnt FROM act "
+            "INNER JOIN live ON act.liveID = live.liveID WHERE yyyymmdd = %s "
+            "GROUP BY 1 ORDER BY 2 DESC) AS lives WHERE cnt < 10 LIMIT 1"
         )
         cursor.execute(sql, (data["date"],))
         liveID, _ = cursor.fetchone()
         cursor = conn.cursor(MySQLdb.cursors.DictCursor)
         sql = (
-          "SELECT live.liveID, live.context, live.open, live.ticket, "
-          "live.yyyymmdd, live.image, house.url, house.name "
-          "FROM live INNER JOIN house ON live.houseID = house.houseID "
-          "WHERE live.liveID = %s"
+            "SELECT live.liveID, live.context, live.open, live.ticket, "
+            "live.yyyymmdd, live.image, house.url, house.name "
+            "FROM live INNER JOIN house ON live.houseID = house.houseID "
+            "WHERE live.liveID = %s"
         )
         cursor.execute(sql, (liveID,))
         return cursor.fetchone()
