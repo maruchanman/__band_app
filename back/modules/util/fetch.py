@@ -30,6 +30,9 @@ class Fetch(Connect):
                 live["act"] = self._fetch_acts(live["liveID"], conn)
         elif command == "search":
             ret = self._sub_search(data, conn)
+        elif command == "todays_pickup":
+            ret = self._fetch_todays_pickup(data, conn)
+            ret["act"] = self._fetch_acts(ret["liveID"], conn)
         else:
             ret = {}
         conn.close()
@@ -131,3 +134,22 @@ class Fetch(Connect):
         sql = "SELECT * FROM band WHERE LCASE(name) like %s ORDER BY LENGTH(name) LIMIT 10"
         cursor.execute(sql, ('%' + word.lower() + '%',))
         return list(cursor.fetchall())
+
+    def _fetch_todays_pickup(self, data, conn):
+        cursor = conn.cursor()
+        sql = (
+          "SELECT act.liveID, count(act.liveID) FROM act "
+          "INNER JOIN live ON act.liveID = live.liveID "
+          "WHERE live.yyyymmdd = %s GROUP BY 1 ORDER BY 2 DESC LIMIT 1"
+        )
+        cursor.execute(sql, (data["date"],))
+        liveID, _ = cursor.fetchone()
+        cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+        sql = (
+          "SELECT live.liveID, live.context, live.open, live.ticket, "
+          "live.yyyymmdd, live.image, house.url, house.name "
+          "FROM live INNER JOIN house ON live.houseID = house.houseID "
+          "WHERE live.liveID = %s"
+        )
+        cursor.execute(sql, (liveID,))
+        return cursor.fetchone()
