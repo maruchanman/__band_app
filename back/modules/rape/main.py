@@ -15,7 +15,7 @@ house_df = rape.house_df()
 insert = Insert("remote")
 insert.insert_house(house_df)
 date = datetime.date.today() + datetime.timedelta(days=30)
-for delta in range(24):
+for delta in range(1):
     print('\nRaping: {0}/{1}\n'.format(date.year, date.month))
     rape.set(date.year, date.month)
     r = rape.execute(house_df)

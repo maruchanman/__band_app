@@ -67,7 +67,7 @@ class Insert(Connect):
         conn.close()
   
     def _live(self, live, info, cur):
-        if len(live["html"]) > 0:
+        if len(live["html"]) > 0 and (len(live["time"]) > 0 or len(live["price"]) > 0):
             houseID, year, month = info
             month = self._zerohead(month)
             day = self._zerohead(live["date"])

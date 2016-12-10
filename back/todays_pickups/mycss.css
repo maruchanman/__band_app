@@ -1,0 +1,52 @@
+body {
+  background: red;
+  margin: 0;
+  padding: 0;
+  font-family: Impact,Charcoal;
+}
+.container {
+  margin: 12% 4%;
+  background: white;
+  padding: 0 30;
+}
+.title-block {
+  position: relative;
+  height: 60;
+}
+.title-block h1 {
+  position: absolute;
+  top: -60;
+  left: -50;
+  color: white;
+  font-size: 100;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  text-shadow: 4px 0 0 red, -4px 0 0 red, 0 4px 0 red, 0 -4px 0 red, 2px 2px red, -2px -2px 0 red, 2px -2px 0 red, -2px 2px 0 red;
+}
+.livehouse {
+  margin-bottom: 0;
+  font-size: 40;
+}
+.date {
+  font-size: 30;
+  margin-bottom: 0;
+}
+.tag {
+  font-weight: bold;
+  color: gray;
+  font-size: 30;
+}
+.act {
+  margin: 40 0;
+}
+.act p {
+  margin: 0;
+  font-size: 30;
+}
+.subinfo {
+  margin-top: 30;
+  color: gray;
+  width: 100%;
+  text-align: right;
+}
