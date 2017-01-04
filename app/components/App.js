@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   View,
-  Text,
   TabBarIOS
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';

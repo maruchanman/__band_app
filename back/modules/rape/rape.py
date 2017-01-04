@@ -32,45 +32,53 @@ class Rape():
         self.year = year
         self.month = month
 
-    def execute(self, df):
+    def execute(self, data):
         arr = []
         for houseID, data in df.iterrows():
             live = {
                 "houseID": houseID, "year": self.year, "month": self.month}
-            try:
-                soup = self._croll(data)
-                live["data"] = self._extract(soup, data) if soup else []
-                arr.append(live)
-            except:
-                print("rape on {} is failed".format(data["name"]))
+            soup = self._croll(data)
+            live["data"] = self._extract(soup, data) if soup else []
+            arr.append(live)
         return arr
 
-    def house_df(self):
-        df = pd.read_csv("{}/house.csv".format(RAPE_DIR), index_col=0)
-        df = df[(df.ctg == "a") | (df.ctg == "b")]
-        return df
+    def houses(self):
+        with open("{}/house.json".format(RAPE_DIR), "r") as f:
+            return json.load(f)
 
     def _croll(self, data):
-        url = self.__fix_url(data.url)
+        url = self.__fix_url(data["url"])
         soup = self.__soup(url, data)
         return soup
 
     def _extract(self, soup, data):
         r = []
         boxes = self.__extract_box(soup, data)
-        for box in boxes:
-            dates = self.__extract_dates(box)
-            rr = {}
-            if len(dates) > 0:
-                rr["date"] = dates
-                rr["html"] = self.__extract_html(box)
-                rr["image"] = self.__extract_image(box, self.__fix_url(data.url))
-                rr["time"] = self.__extract_time(box)
-                rr["price"] = self.__extract_price(box)
-                rr["bands"] = self.__extract_band(rr["html"])
-                r.append(rr)
-        r = self.__fixdate(r)
-        return r if r else []
+        for obj in boxes:
+            day, html = obj["day"], obj["box"]
+            infos = re.findall(data["open"], html)
+            if len(infos) == 0:
+                print("open_pattern may be invalid ?")
+            for ix, info in enumerate(infos):
+                time = [x for x in re.findall("\d{2}:\d{2}", info.replace('：', ':'))]
+                price = [
+                    x for x in re.findall(
+                        "\d{1,3}00", info.replace(",", "").replace(".", "")) if int(x)!=0]
+                context = self.__to_context(html, infos, ix)
+                bands = self.__extract_bands(context)
+                r.append({
+                    "day": day,
+                    "time": time,
+                    "price": price,
+                    "bands": bands,
+                    "context": context
+                })
+                print(day)
+                print(time)
+                print(price)
+                print(bands)
+                print(context)
+        return r
 
     def __fix_url(self, url):
         url = url.replace("%4d", str(self.year))
@@ -83,77 +91,61 @@ class Rape():
     def __soup(self, url, data):
         headers = {
           'User-Agent': 'Mozilla/5.0 (Windows NT 6.0; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0'}
-        try:
-            if data.url.find("%") != -1:
-                html = requests.get(url, headers=headers)
-            else:
-                html = requests.get(url, headers=headers) if self.today.month == self.month and self.today.year == self.year else '<body></body>'
-            soup = BeautifulSoup(html.text.encode(html.encoding))
-            return soup
-        except:
-            return False
-
-    def __navigate(self, url):
-        self.driver.get(url)
-        tag = [x for x in tags if x.get_attribute("textContent").find('{}'.format(self.month)) != -1][0]
-        return '<p></p>'
+        if data["url"].find("%") != -1:
+            res = requests.get(url, headers=headers)
+        else:
+            res = requests.get(url, headers=headers) if self.today.month == self.month and self.today.year == self.year else '<body></body>'
+        soup = BeautifulSoup(res.text.encode(res.encoding))
+        #driver = webdriver.PhantomJS()
+        #driver.get(url)
+        #soup = driver.page_source
+        if len(str(soup)) < 1000:
+            print("loaded soup is too short")
+        return soup
 
     def __extract_box(self, soup, data):
-        if data.ctg == "a":
-            boxes = soup.select(data.box)
-        elif data.ctg == "b":
-            comps = re.split(data.box.split(':')[0], str(soup.html))
-            comps[-1] = comps[-1].split(data.box.split(':')[1])[0]
-            boxes = [BeautifulSoup(x) for x in comps[1:]]
-        elif data.ctg == "c":
-            boxes = []
+        html = str(soup)
+        html = re.split(data["end"], html)[0]
+        date_tags = re.findall(data["date"], html)
+        print(html)
+        print(date_tags)
+        if len(date_tags) == 0:
+            raise Exception("date_pattern is invalid")
+        days = self.__extract_day(date_tags)
+        boxes = re.split(data["date"], html)[1 : len(days) + 1]
+        boxes = [re.sub("\n", "/", x) for x in boxes]
+        boxes = [re.sub("\r", "/", x) for x in boxes]
+        return [{"day": d, "box": b} for d, b in zip(days, boxes)]
+
+    def __extract_day(self, tags):
+        numbers = [re.findall('\d{1,4}', tag) for tag in tags]
+        variations = [len(set([x[n] for x in numbers])) for n in range(len(numbers[0]))]
+        idx = variations.index(max(variations))
+        days = [int(x[idx]) for x in numbers]
+        conv_points = [y for x, y in zip(days[:-1], days[1:]) if x > y]
+        days = days[:days.index(conv_points[0])] if len(conv_points) > 0 else days
+        return days
+
+    def __to_context(self, box, infos, ix):
+        if len(infos) == 1:
+            context = box
         else:
-            boxes = []
-        return boxes
+            if ix == 0:
+                context = box.split(infos[0])[0] + infos[0]
+            else:
+                context = box.split(infos[ix])[0].split(infos[ix - 1])[1] + infos[ix]
+        context = re.sub("<.+?>", "/", context)
+        context = re.sub("\s{2,}", " ", context)
+        context = re.sub("/{2,}", "/", context)
+        return context
 
-    def __extract_dates(self, box):
-        return [int(x) for x in re.findall("\d+", box.text) if x != '' and int(x) < 32]
-
-    def __extract_html(self, box):
-        html = box.text
-        html = re.sub("\n", "/", html)
-        html = re.sub("\t", "/", html)
-        html = re.sub("\r", "/", html)
-        html = re.sub(", ", "/", html)
-        html = re.sub("／", "/", html)
-        html = re.sub(" {2,}", " ", html)
-        html = re.sub("/ +/", "/", html)
-        html = re.sub("/ +", "/", html)
-        html = re.sub(" +/", "/", html)
-        html = re.sub("/+", "/", html)
-        return html
-
-    def __extract_time(self, box):
-        infos = [x for x in re.findall("\d{2}:\d{2}", box.text.replace('：', ':'))]
-        return infos
-
-    def __extract_image(self, box, url):
-        img = "NULL"
-        for imgtag in box.select('img'):
-            src = imgtag['src']
-            text = imgtag.text
-            if src.find('.gif') == -1 and text.find("data") == -1 and text.find("banner") == -1:
-                img = urllib.parse.urljoin(url, src) if src.find("http") == -1 else src
-                break
-        return img
-
-    def __extract_price(self, box):
-        html = box.text.replace(",", "")
-        prices = [x for x in re.findall("\d{2,3}00", html)]
-        return prices
-
-    def __extract_band(self, html):
+    def __extract_bands(self, html):
+        text = self.__fix_html_for_band(html)
         tagger = MeCab.Tagger('-u {}/bands.dic'.format(DIC_DIR))
         r = []
-        html = re.sub('\(.+?\)', '', html)
-        for line in [x for x in tagger.parse(html).split('\n') if x.split(',')[-1] == 'バンド']:
+        for line in [x for x in tagger.parse(text).split('\n') if x.split(',')[-1] == 'バンド']:
             band = line.split(',')[0].split('\t')[0]
-            for extracted in [x for x in html.split("/") if x.find(band) != -1]:
+            for extracted in [x.strip() for x in text.split("/") if x.find(band) != -1]:
                 if len(band) > 4:
                     if len(extracted.replace(band, "")) < 2 * len(band):
                         r.append(band)
@@ -163,26 +155,16 @@ class Rape():
         r = list(set(r)) if len(r) > 0 else []
         return r
 
-    def __fixdate(self, r):
-        flag = 0
-        for n in range(3):
-            try:
-                arr = [x["date"][n] for x in r]
-                if max(Counter(arr).values()) / len(arr) < 0.3:
-                    prev = 1
-                    for ix, date in enumerate(arr):
-                        if date >= prev:
-                            r[ix]["date"] = date
-                            prev2 = prev
-                        else:
-                            r[ix - 1]["date"] = prev2
-                            r[ix]["date"] = date
-                        prev = date
-                    flag = 1
-                    break
-            except:
-                pass
-        return r if flag == 1 else False
+    def __fix_html_for_band(self, html):
+        with open("./{}/replace_patterns.json".format(RAPE_DIR), "r") as f:
+            patterns = json.load(f)
+            for before, after in patterns.items():
+                html = html.replace(before, after)
+        with open("./{}/remove_patterns.json".format(RAPE_DIR), "r") as f:
+            patterns = json.load(f)
+            for pattern in patterns:
+                html = re.sub(pattern, "", html)
+        return html
 
     def _zerohead(self, number):
         return str(number) if number > 9 else '0{}'.format(number)

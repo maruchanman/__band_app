@@ -1,13 +1,13 @@
 # coding: utf8
 import sys
 import datetime
-from .rape import Rape
+from .rape2 import Rape
 
-houseID = int(sys.argv[1])
+houseID = sys.argv[1]
 today = datetime.date.today()
 r = Rape()
-r.set(today.year, 12)
-df_house = r.house_df()
-data = df_house.ix[houseID]
+r.set(2017, 1)
+houses = r.houses()
+data = houses[houseID]
 soup = r._croll(data)
 lives = r._extract(soup, data)

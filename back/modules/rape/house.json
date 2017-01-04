@@ -1,0 +1,498 @@
+{
+  "1": {
+    "name": "東高円寺二万電圧",
+    "pref": "東京",
+    "url": "http://den-atsu.com/?schedule=%4d-%d-schedule",
+    "date": "<p>■\\d{,2}/\\d{,2}\\(.+?\\)</p>",
+    "open": "Open.\\d{1,2}:\\d{1,2}.*?</p>",
+    "end": "<div class=\"hpb_social\">"
+  },
+  "2": {
+    "name": "下北沢BASEMENT BAR",
+    "pref": "東京",
+    "url": "http://www.toos.co.jp/basementbar/schedule/bb%4d_%s.html",
+    "date": "<font face=\"ＭＳ Ｐゴシック\" size=\"2\">\\d{1,2}</font>",
+    "open": "\\d{1,2}:\\d{1,2}.+?</font>",
+    "end": "<< last month"
+  },
+  "3": {
+    "name": "下北沢THREE",
+    "pref": "東京",
+    "url": "http://www.toos.co.jp/3/3_schedule_%2d%s.html",
+    "date": "\\d{4}\\.\\d{1,2}\\.\\d{1,2}\\.",
+    "open": "open / .+?\\d{1,2}:\\d{1,2}.*?</td>",
+    "end": "<div align=\"right\">.+?</div>"
+  },
+  "4": {
+    "name": "柏DoMe",
+    "pref": "千葉",
+    "url": "http://www.kcdo.me/schedule/",
+    "date": "\\d{4}\\.\\d{1,2}\\.\\d{1,2}",
+    "open": "開場 :.+?\\d{1,2}:\\d{1,2}.+?▲上へ戻る",
+    "end": "<div id=\"fb-root\".+?</div>"
+  },
+  "5": {
+    "name": "下北沢daisy bar",
+    "pref": "東京",
+    "url": "http://www.daisybar.jp/schedule/%2d%s.html",
+    "date": "<td class=\"day\">\\d{1,2}</td>",
+    "open": "<p>OPEN \\d{1,2}:\\d{1,2}.+?</li>",
+    "end": "<div class=\"clearer\"></div>"
+  },
+  "6": {
+    "name": "下北沢SHELTER",
+    "pref": "東京",
+    "url": "http://www.loft-prj.co.jp/schedule/shelter/date/%4d/%s",
+    "date": "<th class=\"day\">\\d{2}.+?</th>",
+    "open": "<p class=\"time_text\">OPEN \\d{2}:\\d{2}.+?詳細を見る→",
+    "end": "<div class=\"sidebar\">"
+  },
+  "7": {
+    "name": "下北沢QUE",
+    "pref": "東京",
+    "url": "http://www.ukproject.com/que/schedule/thismonth.html",
+    "date": "<!--\\d{2}.\\d{2}.*ST-->",
+    "open": "<p>OPEN \\d{2}:\\d{2}.+?</td>",
+    "end": "listMini"
+  },
+  "8": {
+    "name": "下北沢251",
+    "pref": "東京",
+    "url": "http://www.club251.com/sche/%2d%s.html",
+    "date": "<h4.*?>\\d{1,2}/\\d{1,2}.+?</h4>",
+    "open": "<h5>OPEN\\d{2}:\\d{2}.+?</h5>",
+    "end": "<div id=\"info\">"
+  },
+  "9": {
+    "name": "下北沢ERA",
+    "pref": "東京",
+    "url": "http://s-era.jp/%4d/%d/?cat=20",
+    "date": "<span class=\"d\">\\d{1,2}</span>",
+    "open": "<dt>OPEN / START :</dt>.+?</dl>",
+    "end": "<div id=\"footer\">"
+  },
+  "10": {
+    "name": "下北沢GARDEN",
+    "pref": "東京",
+    "url": "http://gar-den.in/?m=%4d%s",
+    "date": "<div style=\"float:left; line-height:36px; font-size:40px;\">\\d{2}</div>",
+    "open": "<div class=\"open\">.+?</div>",
+    "end": "<div class=\"bottom\"></div>"
+  },
+  "11": {
+    "name": "下北沢MOSAiC",
+    "pref": "東京",
+    "url": "http://www.studio-museum.com/mosaic/schedule/%4d%s.html",
+    "date": "<strong>\\d{,2}</strong>",
+    "open": "<td>OP/\\d{1,2}:\\d{1,2}.+?<td class=\"pict\">.+?<table.+?</table>",
+    "end": "<td align=\"right\">"
+  },
+  "12": {
+    "name": "下北沢GARAGE",
+    "pref": "東京",
+    "url": "http://www.garage.or.jp/date/%4d/%s",
+    "date": "<p class=\"date\">\\d{1,2}</p>",
+    "open": "<div class=\"lefter\">open/start</div>.+?info",
+    "end": "<.+?emonth2"
+  },
+  "13": {
+    "name": "下北沢ReG",
+    "pref": "東京",
+    "url": "http://www.reg-r2.com/?page_id=7250&ym=%4d-%s",
+    "date": "\\d{1,2} / \\d{1,2}.+?</td>",
+    "open": "<div class=\"time_price\">.+?</div>",
+    "end": "前の月"
+  },
+  "14": {
+    "name": "新代田FEVER",
+    "pref": "東京",
+    "url": "http://www.fever-popo.com/schedule/%4d/%s/",
+    "date": "<h2 class=\"eventtitle\">\\d{1,2}.\\d{1,2}.\\d{1,2}",
+    "open": "<div>OPEN.+?ADV.+?</div>",
+    "end": "<div class=\"content-nav\">"
+  },
+  "15": {
+    "name": "高円寺HIGH",
+    "pref": "東京",
+    "url": "http://koenji-high.com/schedule/?sy=%4d&sm=%d",
+    "date": ">\\d{1,2}</span>",
+    "open": "<td valign=\"top\">\\d{1,2}:\\d{1,2}/\\d{1,2}:\\d{1,2}</td>.+?</div>",
+    "end": "<div class=\"pagetop\">"
+  },
+  "16": {
+    "name": "高円寺CLUB MISSIONS",
+    "pref": "東京",
+    "url": "http://www.live-missions.com/schedule.html?ym=%4d-%s",
+    "date": "<p class=\"day\">\\d{1,2}</p>",
+    "open": "<dt>OPEN.+?\\d{1,2}:\\d{1,2}.+?</dl>",
+    "end": "<footer id=\"footer\">"
+  },
+  "17": {
+    "name": "東高円寺UFO CLUB",
+    "pref": "東京",
+    "url": "http://www.ufoclub.jp/schedule/",
+    "date": "<th>\\d{1,2}</th>",
+    "open": "<td class=\"td_open\">OPEN \\d{1,2}:\\d{1,2}.+?</tr>",
+    "end": "<div id=\"footer\">"
+  },
+  "19": {
+    "name": "渋谷TSUTAYA O-EAST",
+    "pref": "東京",
+    "url": "http://shibuya-o.com/east/schedule/",
+    "date": ">\\d{1,2}</p>",
+    "open": "<div class=\"close_detail\">.+?ADV.+?</div>",
+    "end": "<footer>"
+  },
+  "20": {
+    "name": "渋谷TSUTAYA O-WEST",
+    "pref": "東京",
+    "url": "http://shibuya-o.com/west/schedule/",
+    "date": "<p.+?>\\d{1,2}</p>",
+    "open": "<div class=\"close_detail\">.+?ADV.+?</div>",
+    "end": "<footer>"
+  },
+  "21": {
+    "name": "渋谷TSUTAYA O-Crest",
+    "pref": "東京",
+    "url": "http://shibuya-o.com/crest/schedule/",
+    "date": "<p.+?>\\d{1,2}</p>",
+    "open": "<div class=\"close_detail\">.+?ADV.+?</div>",
+    "end": "<footer>"
+  },
+  "22": {
+    "name": "渋谷TSUTAYA O-nest",
+    "pref": "東京",
+    "url": "http://shibuya-o.com/nest/schedule/",
+    "date": "<p.+?>\\d{1,2}</p>",
+    "open": "<div class=\"close_detail\">.+?ADV.+?</div>",
+    "end": "<footer>"
+  },
+  "23": {
+    "name": "渋谷乙",
+    "pref": "東京",
+    "url": "http://kinoto.jp/sched/%4d/%s-%4d",
+    "date": "<a href=\"http://kinoto.jp/sched/.+?.html\">\\d{1,2}</a>",
+    "open": "<strong>open.+?</div>",
+    "end": "</table>"
+  },
+  "24": {
+    "name": "渋谷WWW",
+    "pref": "東京",
+    "url": "http://www-shibuya.jp/schedule/",
+    "date": "<p class=\"day\">\\d{1,2}</p>",
+    "open": "<p class=\"openstart\">.+?</p>",
+    "end": "<div id=\"line\"></div>"
+  },
+  "25": {
+    "name": "渋谷duo MUSIC EXCHANGE",
+    "pref": "東京",
+    "url": "http://www.duomusicexchange.com/schedule/%4d/%s/index.html",
+    "date": "<img.+?date_img/\\d{1,2}.+?>",
+    "open": "OPEN, START.+?</table>",
+    "end": "<img.+?LAST MONTH"
+  },
+  "26": {
+    "name": "渋谷La.mama",
+    "pref": "東京",
+    "url": "http://lamama.net/staticpages/index.php/schedule_%4d%s",
+    "date": "<p class=\"decotitle\">\\d{1,2}\\(.+?\\)</p>",
+    "open": "<p>OPEN/START.+?</p>",
+    "end": "</tr>"
+  },
+  "27": {
+    "name": "",
+    "pref": "",
+    "url": "",
+    "date": "",
+    "open": "",
+    "end": ""
+  },
+  "28": {
+    "name": "渋谷eggman",
+    "pref": "東京",
+    "url": "http://eggman.jp/daytime/schedule/%4d/%s/#main",
+    "date": "<.+?img/schedule/num/\\d{1,2}.+?>",
+    "open": "<br clear=\"all\">",
+    "end": "<ul id=\"attention\">"
+  },
+  "30": {
+    "name": "代官山UNIT",
+    "pref": "東京",
+    "url": "http://www.unit-tokyo.com/schedule//%4d/%s/all_schedule.php",
+    "date": "<div class=\"day\\d{1,2}\">\\d{1,2}</div>",
+    "open": "<div class=\"event_info\">.+?OPEN.+?</div>",
+    "end": "<.+?Page Top"
+  },
+  "31": {
+    "name": "代官山LOOP",
+    "pref": "東京",
+    "url": "http://www.live-loop.com/schedule/dl/schedule_%2d%s.html",
+    "date": "\\d{1,2}\\.\\d{1,2} .{3}",
+    "open": "<div class=\"info\">.+?</div>",
+    "end": "<div id=\"caution\">"
+  },
+  "32": {
+    "name": "代官山晴れたら空に豆まいて",
+    "pref": "東京",
+    "url": "http://mameromantic.com/?m=%4d%s&cat=1",
+    "date": "\\d{4}\\.\\d{1,2}\\.\\d{1,2}\\..{1}",
+    "open": "<div class=\"entry\">",
+    "end": "<div class=\"post_gradation\">"
+  },
+  "33": {
+    "name": "恵比寿LIQUIDROOM",
+    "pref": "東京",
+    "url": "http://www.liquidroom.net/schedule/%4d/%s/",
+    "date": "<.+?>\\d{1,2}/\\d{1,2}</p>",
+    "open": "<dl class=\"outline clfx\">.+?</dl>",
+    "end": "<.+?footer"
+  },
+  "34": {
+    "name": "恵比寿天窓.switch",
+    "pref": "東京",
+    "url": "http://otonami.com/swsche",
+    "date": "<div class=\"date-inner\">\\d{1,2}",
+    "open": "<p>.+?\\d{1,2}:\\d{1,2}op／\\d{1,2}:\\d{1,2}st.+?</p>",
+    "end": "<.+?footer"
+  },
+  "35": {
+    "name": "原宿ASTRO HALL",
+    "pref": "東京",
+    "url": "http://www.astro-hall.com/category/schedule/?d=%4d%s",
+    "date": "<.+?date date\\d{1,2}\">",
+    "open": "<ul class=\"schedule\">.+?\\d{1,2}:\\d{1,2}.+?</ul>",
+    "end": "<.+?scheduleNavi"
+  },
+  "36": {
+    "name": "青山月見ル君想フ",
+    "pref": "東京",
+    "url": "http://www.moonromantic.com/?m=%4d%s&cat=1",
+    "date": "\\d{4}\\.\\d{1,2}\\.\\d{1,2}\\..\\.｜",
+    "open": "<div class=\"entry\">",
+    "end": "<div id=\"footer\".+?>"
+  },
+  "37": {
+    "name": "新宿Motion",
+    "pref": "東京",
+    "url": "http://motion-web.jp/html/%4d%s.html",
+    "date": "<div align=\"center\">.+?\\d{1,2}\\.\\d{1,2}",
+    "open": "<td.+?開場/開演：\\d{1,2}:\\d{1,2}.+?</td>",
+    "end": "Copyright"
+  },
+  "39": {
+    "name": "新宿Marz",
+    "pref": "東京",
+    "url": "http://www.marz.jp/schedule/%4d/%s/",
+    "date": "<time class=\"font1\" datetime=\"\\d{4}-\\d{1,2}-\\d{1,2}\">",
+    "open": "<p>open \\d{1,2}:\\d{1,2}.+?</p>",
+    "end": "<div id=\"schedulefoot\">"
+  },
+  "40": {
+    "name": "新宿LOFT",
+    "pref": "東京",
+    "url": "http://www.loft-prj.co.jp/schedule/loft/date/%4d/%s",
+    "date": "<th class=\"day\">\\d{1,2}",
+    "open": "<p class=\"time_text\">OPEN.+?</div>",
+    "end": "<div class=\"sidebar\">"
+  },
+  "41": {
+    "name": "新宿レッドクロス",
+    "pref": "東京",
+    "url": "http://www.sputniklab.com/redcloth/%4d/%4d%s.html",
+    "date": "<p>\\d{1,2}\\.</p>",
+    "open": "<p>op\\d{1,2}:\\d{1,2}</p>.+?前.+?</div>",
+    "end": "<span.+?>red cloth</span>"
+  },
+  "42": {
+    "name": "新宿NINESPICES",
+    "pref": "東京",
+    "url": "http://9spices.rinky.info/schedule/sche10.cgi?mode=main&year=%4d&mon=%d",
+    "date": "<b>\\d{4}年\\d{1,2}月\\d{1,2}日",
+    "open": "OPEN.+?\\d{1,2}:\\d{1,2}.+?</font>",
+    "end": "CGI-design"
+  },
+  "43": {
+    "name": "新宿BRAZE",
+    "pref": "東京",
+    "url": "http://shinjuku-blaze.com/event/date/%4d/%s",
+    "date": "<td class=\"day\">\\d{1,2}</td>",
+    "open": "<dl class=\"eventlist-detail\">.+?</div>",
+    "end": "<div id=\"footer-container\">"
+  },
+  "44": {
+    "name": "新宿Wild Side Tokyo",
+    "pref": "東京",
+    "url": "http://ws-tokyo.com/schedule/?t=%4d%s",
+    "date": "<span class=\"date\">\\d{1,2}\\.\\d{1,2}</span>",
+    "open": "<p class=\"info\">.+?\\d{1,2}:\\d{1,2}.+?</p>",
+    "end": "<nav class=\"bottom\">"
+  },
+  "45": {
+    "name": "初台WALL",
+    "pref": "東京",
+    "url": "http://wall-moonstep.com/wall/wall_mobile/schedule/%4d/%4d_%s_mobile.html",
+    "date": "<b>\\d{1,2}/\\d{1,2}.+?</b>",
+    "open": "<font.+?>.+?OPEN.+?\\d{1,2}.\\d{1,2}.+?</font>",
+    "end": "-TOP-"
+  },
+  "46": {
+    "name": "池袋EDGE",
+    "pref": "東京",
+    "url": "http://xxxrecords.jp/edge/pg%d.html",
+    "date": "<div class=\"th\">\\d{1,2}/\\d{1,2}.+?</div>",
+    "open": "<div>.+?OPEN.+?\\d{1,2}:\\d{1,2}.+?Adv.+?</div>",
+    "end": "<div class=\"abl\">"
+  },
+  "47": {
+    "name": "池袋Adm",
+    "pref": "東京",
+    "url": "http://www.adm-rock.com/sche2/index.html",
+    "date": "<h3>\\d{1,2}/\\d{1,2}.+?</h3>",
+    "open": "\\d{1,2}:\\d{1,2}.+?1D",
+    "end": "<div class=\"block\">"
+  },
+  "48": {
+    "name": "高田馬場AREA",
+    "pref": "東京",
+    "url": "http://www.xxxrecords.jp/area/sche_%2d%s.html",
+    "date": "src=\"c_\\d{1,2}.+?>",
+    "open": "<td.+?>.+?\\d{1,2}:\\d{1,2}/\\d{1,2}:\\d{1,2}.+?</td>",
+    "end": "</body>"
+  },
+  "49": {
+    "name": "高田馬場CLUB PHASE",
+    "pref": "東京",
+    "url": "http://www.club-phase.com/contents/sched/%2d%s.html",
+    "date": "<span class=\"sc_date\">\\d{1,2}</span>",
+    "open": "<div class=\"sc_price\">OPEN\\s\\d{1,2}:\\d{1,2}.+?</div>",
+    "end": "▲最上部へ戻る▲"
+  },
+  "50": {
+    "name": "四谷OUTBREAK",
+    "pref": "東京",
+    "url": "http://www.hor-outbreak.com/live.php?ym=%4d-%s",
+    "date": "<p class=\"day\">\\d{1,2}</p>",
+    "open": "<dt>OPEN.+?\\d{1,2}:\\d{1,2}.+?</dl>",
+    "end": "<div id=\"footerFrame\">"
+  },
+  "51": {
+    "name": "四谷天窓",
+    "pref": "東京",
+    "url": "http://otonami.com/ysche",
+    "date": "<div class=\"date-inner\">\\d{1,2}",
+    "open": "<p>.*?\\d{1,2}:\\d{1,2}.+?</p>",
+    "end": "<footer id=\"footer\">"
+  },
+  "52": {
+    "name": "四谷天窓.comfort",
+    "pref": "東京",
+    "url": "http://otonami.com/cosche",
+    "date": "<div class=\"date-inner\">\\d{1,2}",
+    "open": "<p>.*?\\d{1,2}:\\d{1,2}.+?</p>",
+    "end": "<footer id=\"footer\">"
+  },
+  "53": {
+    "name": "赤坂BLITZ",
+    "pref": "東京",
+    "url": "http://www.tbs.co.jp/blitz/schedule_a/schedule%4d%s.html",
+    "date": "<span class=\"date\">\\d{1,2}</span>",
+    "open": "<dd>\\d{1,2}:\\d{1,2}.+?</dl>",
+    "end": "<div id=\"unitBottom\">"
+  },
+  "54": {
+    "name": "大塚MEETS",
+    "pref": "東京",
+    "url": "http://meets.rinky.info/sche10.cgi?mode=main&year=%4d&mon=%d",
+    "date": "<b>\\d{4}年\\d{1,2}月\\d{1,2}日",
+    "open": "open\\d{1,2}:\\d{1,2}.+?</font>",
+    "end": "CGI-design"
+  },
+  "55": {
+    "name": "新大久保EARTHDOM",
+    "pref": "東京",
+    "url": "http://www1.odn.ne.jp/~cfs81480/index.html/%4d.%s.html",
+    "date": "<center>\\d{1,2}\\(.\\)",
+    "open": "<font size=\"-2\">OPEN\\s\\d{1,2}:\\d{1,2}.+?</font>",
+    "end": "</html>"
+  },
+  "56": {
+    "name": "秋葉原GOODMAN",
+    "pref": "東京",
+    "url": "http://clubgoodman.com/schedule/schedule%2d-%s.html",
+    "date": ">\\d{1,2}</td>",
+    "open": "<td class=\"o-s\">.+?\\d{1,2}:\\d{1,2}.+?</tr>",
+    "end": "<b>Daytime Event"
+  },
+  "62": {
+    "name": "立川BABEL",
+    "pref": "東京",
+    "url": "http://www.babel-rocktower.net/schedule/%4d%s.html",
+    "date": "\\d{1,2}/\\d{1,2}\\s\\(.\\)",
+    "open": "<dd>.+?</dd>",
+    "end": "<div id=\"footer\">"
+  },
+  "65": {
+    "name": "新木場STUDIO COAST",
+    "pref": "東京",
+    "url": "http://www.studio-coast.com/%4d/%d/",
+    "date": "<span class=\"schedule-list-date1-1\">\\d{1,2}</span>",
+    "open": "<span class=\"schedule-list-time\">\\d{1,2}:\\d{1,2}.+?</td>",
+    "end": "<div id=\"footer\">"
+  },
+  "66": {
+    "name": "学芸大学MAPLEHOUSE",
+    "pref": "東京",
+    "url": "http://www.maplehouse.jp/schedule/schedule.html",
+    "date": "\\d{1,2}日",
+    "open": "open \\d{1,2}:\\d{1,2}.+?</span>",
+    "end": "<div id=\"blank-footer\".+?>"
+  },
+  "67": {
+    "name": "千葉LOOK",
+    "pref": "千葉",
+    "url": "http://chibalook.com/schedule/index.html",
+    "date": "\\-.+?\\d{1,2}\\s\\-",
+    "open": "<th.+?>OPEN</th>.+?<td.+?>\\d{1,2}:\\d{1,2}.+?</table>",
+    "end": "<caption align=\"bottom\">"
+  },
+  "71": {
+    "name": "横浜F.A.D",
+    "pref": "神奈川",
+    "url": "http://www.fad-music.com/fad/?page_id=3",
+    "date": "<strong>\\d{1,2}\\s.{3}",
+    "open": "<span.+?>OPEN\\d{1,2}:\\d{1,2}.+?</span>",
+    "end": "<!-- <rdf"
+  },
+  "73": {
+    "name": "横浜B.B.street",
+    "pref": "神奈川",
+    "url": "http://www.bbstreet.com/%4d/%s?cat=5",
+    "date": "\\d{4}年\\d{1,2}月\\d{1,2}日",
+    "open": "open/\\d{1,2}:\\d{1,2}.+?</p>",
+    "end": "<div class=\"clearfix prevnext\">"
+  },
+  "74": {
+    "name": "横浜7th AVENUE",
+    "pref": "神奈川",
+    "url": "http://www2.big.or.jp/~7th/schedule/%2d%s.html",
+    "date": "\\d{1,2}/\\d{1,2}</div>",
+    "open": "<span class=\"btn\">開場/開演</span>.+?</div>",
+    "end": "<footer class=\"pagefooter\">"
+  },
+  "76": {
+    "name": "",
+    "pref": "",
+    "url": "",
+    "date": "",
+    "open": "",
+    "end": ""
+  },
+  "tmp": {
+    "name": "",
+    "pref": "",
+    "url": "",
+    "date": "",
+    "open": "",
+    "end": ""
+  }
+}
