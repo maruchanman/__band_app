@@ -112,3 +112,27 @@ extract failed
 
 横浜B.B.street: http://www.bbstreet.com/2017/01?cat=5
 extract failed
+
+高田馬場AREA: http://www.xxxrecords.jp/area/sche_1701.html
+extract failed
+
+渋谷乙: http://kinoto.jp/sched/2017/01-2017
+extract failed
+
+高田馬場AREA: http://www.xxxrecords.jp/area/sche_1702.html
+extract failed
+
+東高円寺二万電圧: http://den-atsu.com/?schedule=2017-2-schedule
+extract failed
+
+渋谷TSUTAYA O-EAST: http://shibuya-o.com/east/schedule/
+url is invalid
+
+渋谷WWW: http://www-shibuya.jp/schedule/
+url is invalid
+
+渋谷La.mama: http://lamama.net/staticpages/index.php/schedule_201702
+extract failed
+
+池袋Adm: http://www.adm-rock.com/sche2/index.html
+url is invalid

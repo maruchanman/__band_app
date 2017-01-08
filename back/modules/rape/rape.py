@@ -101,13 +101,15 @@ class Rape():
         if data["url"].find("%") != -1:
             res = requests.get(url, headers=headers)
         else:
-            res = requests.get(url, headers=headers) if self.today.month == self.month and self.today.year == self.year else '<body></body>'
+            res = requests.get(url, headers=headers) if self.today.month == self.month and self.today.year == self.year else None
+        if res is None:
+            return False
         soup = BeautifulSoup(res.text.encode(res.encoding))
+        if len(str(soup)) < 1000:
+            return False
         #driver = webdriver.PhantomJS()
         #driver.get(url)
         #soup = driver.page_source
-        if len(str(soup)) < 1000:
-            print("loaded soup is too short")
         return soup
 
     def __extract_box(self, soup, data):
