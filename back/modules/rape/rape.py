@@ -32,19 +32,31 @@ class Rape():
         self.year = year
         self.month = month
 
-    def execute(self, data):
+    def execute(self, houses):
         arr = []
-        for houseID, data in df.iterrows():
+        for houseID, data in houses.items():
             live = {
                 "houseID": houseID, "year": self.year, "month": self.month}
             soup = self._croll(data)
-            live["data"] = self._extract(soup, data) if soup else []
-            arr.append(live)
+            if soup:
+                live["data"] = self._extract(soup, data)
+                if live["data"]:
+                    arr.append(live)
+                else:
+                    self._error(data, "extract failed")
+            else:
+                self._error(data, "url is invalid")
         return arr
 
     def houses(self):
         with open("{}/house.json".format(RAPE_DIR), "r") as f:
             return json.load(f)
+
+    def _error(self, data, msg):
+        with open("{}/errorlog.txt".format(RAPE_DIR), "a") as f:
+            f.write("\n{}: {}\n".format(data["name"], self.__fix_url(data["url"])))
+            f.write(msg)
+            f.write("\n")
 
     def _croll(self, data):
         url = self.__fix_url(data["url"])
@@ -54,11 +66,11 @@ class Rape():
     def _extract(self, soup, data):
         r = []
         boxes = self.__extract_box(soup, data)
+        if not boxes:
+            return False
         for obj in boxes:
             day, html = obj["day"], obj["box"]
             infos = re.findall(data["open"], html)
-            if len(infos) == 0:
-                print("open_pattern may be invalid ?")
             for ix, info in enumerate(infos):
                 time = [x for x in re.findall("\d{2}:\d{2}", info.replace('：', ':'))]
                 price = [
@@ -67,17 +79,12 @@ class Rape():
                 context = self.__to_context(html, infos, ix)
                 bands = self.__extract_bands(context)
                 r.append({
-                    "day": day,
+                    "date": day,
                     "time": time,
                     "price": price,
                     "bands": bands,
-                    "context": context
+                    "html": context
                 })
-                print(day)
-                print(time)
-                print(price)
-                print(bands)
-                print(context)
         return r
 
     def __fix_url(self, url):
@@ -107,10 +114,8 @@ class Rape():
         html = str(soup)
         html = re.split(data["end"], html)[0]
         date_tags = re.findall(data["date"], html)
-        print(html)
-        print(date_tags)
         if len(date_tags) == 0:
-            raise Exception("date_pattern is invalid")
+            return False
         days = self.__extract_day(date_tags)
         boxes = re.split(data["date"], html)[1 : len(days) + 1]
         boxes = [re.sub("\n", "/", x) for x in boxes]

@@ -36,10 +36,10 @@ class Insert(Connect):
         conn.commit()
         conn.close()
 
-    def insert_house(self, df):
+    def insert_house(self, data):
         conn = self.connect(self.db)
         cur = conn.cursor()
-        for houseID, house in df.iterrows():
+        for houseID, house in data.items():
             self._house(houseID, house, cur)
         conn.commit()
         conn.close()
@@ -67,14 +67,14 @@ class Insert(Connect):
         conn.close()
   
     def _live(self, live, info, cur):
-        if len(live["html"]) > 0 and (len(live["time"]) > 0 or len(live["price"]) > 0):
+        if len(live["html"]) > 0 and len(live["time"]) > 0:
             houseID, year, month = info
             month = self._zerohead(month)
             day = self._zerohead(live["date"])
             yyyymmdd = '{0}{1}{2}'.format(year, month, day)
             context = live["html"].replace("'", "''")
-            time = live["time"][0] if len(live["time"]) > 0 else "NULL"
-            ticket = live["price"][0] if len(live["price"]) > 0 else "NULL"
+            time = live["time"][0]
+            ticket = live["price"][0] if len(live["price"]) > 0 else ""
             sql = (
                 "SELECT count(*), liveID FROM live WHERE "
                 "houseID = %s AND yyyymmdd = %s AND open = %s"
@@ -83,12 +83,12 @@ class Insert(Connect):
             cnt, liveID = cur.fetchone()
             if cnt == 0:
                 sql = (
-                    "INSERT INTO live (houseID, context, open, ticket, image, yyyymmdd) "
-                    "VALUES (%s, %s, %s, %s, %s, %s)"
+                    "INSERT INTO live (houseID, context, open, ticket, yyyymmdd) "
+                    "VALUES (%s, %s, %s, %s, %s)"
                 )
                 cur.execute(
                     sql,
-                    (houseID, context, time, ticket, live["image"].replace("'", "''"), yyyymmdd)
+                    (houseID, context, time, ticket, yyyymmdd)
                 )
                 return cur.lastrowid
             else:
@@ -143,7 +143,7 @@ class Insert(Connect):
                 "INSERT INTO house (houseID, prefacture, name, url)"
                 " VALUES (%s, %s, %s, %s)"
             )
-            cur.execute(sql, (houseID, house["prefacture"], name, house["url"]))
+            cur.execute(sql, (houseID, house["pref"], name, house["url"]))
 
     def _zerohead(self, number):
         return str(number) if number > 9 else '0{}'.format(number)

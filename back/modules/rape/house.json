@@ -199,14 +199,6 @@
     "open": "<p>OPEN/START.+?</p>",
     "end": "</tr>"
   },
-  "27": {
-    "name": "",
-    "pref": "",
-    "url": "",
-    "date": "",
-    "open": "",
-    "end": ""
-  },
   "28": {
     "name": "渋谷eggman",
     "pref": "東京",
@@ -478,21 +470,5 @@
     "date": "\\d{1,2}/\\d{1,2}</div>",
     "open": "<span class=\"btn\">開場/開演</span>.+?</div>",
     "end": "<footer class=\"pagefooter\">"
-  },
-  "76": {
-    "name": "",
-    "pref": "",
-    "url": "",
-    "date": "",
-    "open": "",
-    "end": ""
-  },
-  "tmp": {
-    "name": "",
-    "pref": "",
-    "url": "",
-    "date": "",
-    "open": "",
-    "end": ""
   }
 }
