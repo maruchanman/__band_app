@@ -1,0 +1,51 @@
+body {
+  background: whitesmoke;
+  margin: 0;
+  padding: 0;
+  font-family: "AvenirNextCondensed-Heavy", "Arial Black", "sans serif";
+}
+.container {
+  margin: 12% 2%;
+  background: white;
+  padding: 0 30;
+}
+.title-block {
+  position: relative;
+  height: 60;
+}
+.title-block h1 {
+  position: absolute;
+  top: -80;
+  left: -40;
+  color: red;
+  font-size: 120;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+.livehouse {
+  margin-bottom: 0;
+  font-size: 40;
+}
+.date {
+  font-size: 30;
+  margin-bottom: 0;
+}
+.tag {
+  font-weight: bold;
+  color: gray;
+  font-size: 30;
+}
+.act {
+  margin: 40 0;
+}
+.act p {
+  margin: 0;
+  font-size: 30;
+}
+.subinfo {
+  margin-top: 30;
+  color: gray;
+  width: 100%;
+  text-align: right;
+}

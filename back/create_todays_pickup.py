@@ -13,21 +13,22 @@ def _fix_url(url, yyyymmdd):
     url = url.replace("%-s", str(month - 1))
     return url
 
-def fetch_pickup():
+def fetch_pickup(date):
     fetch = Fetch("remote")
-    date = datetime.date.today()
     data = fetch.execute("todays_pickup", {"date": date.strftime('%Y%m%d')})
     data["url"] = _fix_url(data["url"], data["yyyymmdd"])
     return data
 
-r = fetch_pickup()
+date = datetime.date.today() + datetime.timedelta(days=1)
+r = fetch_pickup(date)
 env = Environment(loader=FileSystemLoader('./', encoding='utf8'))
 tpl = env.get_template('./templates/todays_pickup.html')
 html = tpl.render({
-    'date': datetime.date.today().strftime('%Y/%m/%d'),
+    'date': date.strftime('%Y/%m/%d'),
     'act': r["act"],
     "house": r["name"],
+    "pref": r["prefacture"],
     "url": r["url"]
 })
-with open("./todays_pickups/{}.html".format(r["yyyymmdd"]), 'w', encoding="utf-8") as f:
+with open("./bandweb/{}.html".format(r["yyyymmdd"]), 'w', encoding="utf-8") as f:
   f.write(html)

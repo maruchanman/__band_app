@@ -1,138 +1,114 @@
 
-高田馬場AREA: http://www.xxxrecords.jp/area/sche_1701.html
+横浜7th AVENUE: http://www2.big.or.jp/~7th/schedule/1702.html
 extract failed
 
-渋谷乙: http://kinoto.jp/sched/2017/01-2017
+渋谷WWW: http://www-shibuya.jp/schedule/
+url is invalid
+
+渋谷duo MUSIC EXCHANGE: http://www.duomusicexchange.com/schedule/2017/02/index.html
 extract failed
 
-池袋EDGE: http://xxxrecords.jp/edge/pg1.html
+四谷天窓.comfort: http://otonami.com/cosche
+url is invalid
+
+渋谷TSUTAYA O-nest: http://shibuya-o.com/nest/schedule/
+url is invalid
+
+渋谷TSUTAYA O-Crest: http://shibuya-o.com/crest/schedule/
+url is invalid
+
+新大久保EARTHDOM: http://www1.odn.ne.jp/~cfs81480/index.html/2017.02.html
+url is invalid
+
+池袋EDGE: http://xxxrecords.jp/edge/pg2.html
 extract failed
 
-秋葉原GOODMAN: http://clubgoodman.com/schedule/schedule17-01.html
+横浜B.B.street: http://www.bbstreet.com/2017/02?cat=5
 extract failed
 
-渋谷La.mama: http://lamama.net/staticpages/index.php/schedule_201701
+渋谷La.mama: http://lamama.net/staticpages/index.php/schedule_201702
 extract failed
 
-横浜B.B.street: http://www.bbstreet.com/2017/01?cat=5
+下北沢ReG: http://www.reg-r2.com/?page_id=7250&ym=2017-02
 extract failed
 
-下北沢ReG: http://www.reg-r2.com/?page_id=7250&ym=2017-01
-extract failed
+四谷天窓: http://otonami.com/ysche
+url is invalid
 
-下北沢MOSAiC: http://www.studio-museum.com/mosaic/schedule/201701.html
-extract failed
+学芸大学MAPLEHOUSE: http://www.maplehouse.jp/schedule/schedule.html
+url is invalid
 
-下北沢ReG: http://www.reg-r2.com/?page_id=7250&ym=2017-01
-extract failed
-
-渋谷La.mama: http://lamama.net/staticpages/index.php/schedule_201701
-extract failed
-
-下北沢MOSAiC: http://www.studio-museum.com/mosaic/schedule/201701.html
-extract failed
-
-横浜B.B.street: http://www.bbstreet.com/2017/01?cat=5
-extract failed
-
-秋葉原GOODMAN: http://clubgoodman.com/schedule/schedule17-01.html
-extract failed
-
-高田馬場AREA: http://www.xxxrecords.jp/area/sche_1701.html
-extract failed
-
-渋谷乙: http://kinoto.jp/sched/2017/01-2017
-extract failed
-
-池袋EDGE: http://xxxrecords.jp/edge/pg1.html
-extract failed
-
-横浜B.B.street: http://www.bbstreet.com/2017/01?cat=5
-extract failed
-
-下北沢MOSAiC: http://www.studio-museum.com/mosaic/schedule/201701.html
-extract failed
-
-下北沢ReG: http://www.reg-r2.com/?page_id=7250&ym=2017-01
-extract failed
-
-池袋EDGE: http://xxxrecords.jp/edge/pg1.html
-extract failed
-
-渋谷La.mama: http://lamama.net/staticpages/index.php/schedule_201701
-extract failed
-
-秋葉原GOODMAN: http://clubgoodman.com/schedule/schedule17-01.html
-extract failed
-
-渋谷乙: http://kinoto.jp/sched/2017/01-2017
-extract failed
-
-高田馬場AREA: http://www.xxxrecords.jp/area/sche_1701.html
-extract failed
-
-高田馬場AREA: http://www.xxxrecords.jp/area/sche_1701.html
-extract failed
-
-下北沢MOSAiC: http://www.studio-museum.com/mosaic/schedule/201701.html
-extract failed
-
-渋谷La.mama: http://lamama.net/staticpages/index.php/schedule_201701
-extract failed
-
-秋葉原GOODMAN: http://clubgoodman.com/schedule/schedule17-01.html
-extract failed
-
-横浜B.B.street: http://www.bbstreet.com/2017/01?cat=5
-extract failed
-
-渋谷乙: http://kinoto.jp/sched/2017/01-2017
-extract failed
-
-下北沢ReG: http://www.reg-r2.com/?page_id=7250&ym=2017-01
-extract failed
-
-池袋EDGE: http://xxxrecords.jp/edge/pg1.html
-extract failed
-
-渋谷La.mama: http://lamama.net/staticpages/index.php/schedule_201701
-extract failed
-
-池袋EDGE: http://xxxrecords.jp/edge/pg1.html
-extract failed
-
-下北沢ReG: http://www.reg-r2.com/?page_id=7250&ym=2017-01
-extract failed
-
-下北沢MOSAiC: http://www.studio-museum.com/mosaic/schedule/201701.html
-extract failed
-
-秋葉原GOODMAN: http://clubgoodman.com/schedule/schedule17-01.html
-extract failed
-
-横浜B.B.street: http://www.bbstreet.com/2017/01?cat=5
-extract failed
-
-高田馬場AREA: http://www.xxxrecords.jp/area/sche_1701.html
-extract failed
-
-渋谷乙: http://kinoto.jp/sched/2017/01-2017
-extract failed
-
-高田馬場AREA: http://www.xxxrecords.jp/area/sche_1702.html
+渋谷乙: http://kinoto.jp/sched/2017/02-2017
 extract failed
 
 東高円寺二万電圧: http://den-atsu.com/?schedule=2017-2-schedule
 extract failed
 
+下北沢MOSAiC: http://www.studio-museum.com/mosaic/schedule/201702.html
+url is invalid
+
+東高円寺UFO CLUB: http://www.ufoclub.jp/schedule/
+url is invalid
+
 渋谷TSUTAYA O-EAST: http://shibuya-o.com/east/schedule/
 url is invalid
 
-渋谷WWW: http://www-shibuya.jp/schedule/
+横浜F.A.D: http://www.fad-music.com/fad/?page_id=3
 url is invalid
 
-渋谷La.mama: http://lamama.net/staticpages/index.php/schedule_201702
+秋葉原GOODMAN: http://clubgoodman.com/schedule/schedule17-02.html
+url is invalid
+
+新宿Motion: http://motion-web.jp/html/201702.html
 extract failed
+
+高円寺CLUB MISSIONS: http://www.live-missions.com/schedule.html?ym=2017-02
+extract failed
+
+千葉LOOK: http://chibalook.com/schedule/index.html
+url is invalid
+
+柏DoMe: http://www.kcdo.me/schedule/
+url is invalid
+
+下北沢BASEMENT BAR: http://www.toos.co.jp/basementbar/schedule/bb2017_02.html
+extract failed
+
+渋谷TSUTAYA O-WEST: http://shibuya-o.com/west/schedule/
+url is invalid
+
+恵比寿天窓.switch: http://otonami.com/swsche
+url is invalid
 
 池袋Adm: http://www.adm-rock.com/sche2/index.html
 url is invalid
+
+下北沢QUE: http://www.ukproject.com/que/schedule/thismonth.html
+url is invalid
+
+高田馬場AREA: http://www.xxxrecords.jp/area/sche_1702.html
+extract failed
+
+池袋EDGE: http://xxxrecords.jp/edge/pg1.html
+extract failed
+
+横浜B.B.street: http://www.bbstreet.com/2017/01?cat=5
+extract failed
+
+渋谷La.mama: http://lamama.net/staticpages/index.php/schedule_201701
+extract failed
+
+下北沢ReG: http://www.reg-r2.com/?page_id=7250&ym=2017-01
+extract failed
+
+渋谷乙: http://kinoto.jp/sched/2017/01-2017
+extract failed
+
+下北沢MOSAiC: http://www.studio-museum.com/mosaic/schedule/201701.html
+url is invalid
+
+秋葉原GOODMAN: http://clubgoodman.com/schedule/schedule17-01.html
+url is invalid
+
+高田馬場AREA: http://www.xxxrecords.jp/area/sche_1701.html
+extract failed

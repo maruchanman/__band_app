@@ -131,7 +131,7 @@ class Fetch(Connect):
 
     def _sub_search(self, word, conn):
         cursor = conn.cursor(MySQLdb.cursors.DictCursor)
-        sql = "SELECT * FROM band WHERE LCASE(name) like %s ORDER BY LENGTH(name) LIMIT 10"
+        sql = "SELECT * FROM band WHERE LCASE(name) like %s ORDER BY LENGTH(name)"
         cursor.execute(sql, ('%' + word.lower() + '%',))
         return list(cursor.fetchall())
 
@@ -148,7 +148,7 @@ class Fetch(Connect):
         cursor = conn.cursor(MySQLdb.cursors.DictCursor)
         sql = (
             "SELECT live.liveID, live.context, live.open, live.ticket, "
-            "live.yyyymmdd, live.image, house.url, house.name "
+            "live.yyyymmdd, live.image, house.url, house.name, house.prefacture "
             "FROM live INNER JOIN house ON live.houseID = house.houseID "
             "WHERE live.liveID = %s"
         )

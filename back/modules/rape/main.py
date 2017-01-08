@@ -12,10 +12,10 @@ def prevmonth(date):
 
 rape = Rape()
 houses = rape.houses()
-insert = Insert("local")
+insert = Insert("remote")
 insert.insert_house(houses)
 date = datetime.date.today() + datetime.timedelta(days=30)
-for delta in range(1):
+for delta in range(2):
     print('\nRaping: {0}/{1}\n'.format(date.year, date.month))
     rape.set(date.year, date.month)
     r = rape.execute(houses)

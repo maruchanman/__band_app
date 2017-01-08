@@ -1,5 +1,8 @@
 <html>
   <head>
+    <meta http-equiv="Content-Language" content="ja">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-itunes-app" content="app-id=1180333674">
     <link rel="stylesheet" type="text/css" href="./mycss.css">
   </head>
   <body>
@@ -8,10 +11,10 @@
         <h1>SHOWTIME!</h1>
       </div>
       <div class="live-block">
-        <h3 class="date">{{ date }} pickup LIVE</h2>
-        <h2 class="livehouse">@{{ house }}</h2>
+        <h3 class="date">{{ date }}注目Live</h2>
+        <h2 class="livehouse">{{ house }}@{{ pref }}</h2>
         <div class="act-block">
-          <p class="tag">出演：</p>
+          <p class="tag">SHOWTIME!注目の出演者：</p>
           {% for band in act %}
             <div class="act">
               <iframe
@@ -22,7 +25,7 @@
           {% endfor %}
         </div>
         <div class="subinfo">
-          <a href="{{ url }}">ライブハウスのHPへ</a>
+          <a href="{{ url }}" target="_blank">詳細はこちら</a>
         </div>
       </div>
     </div>

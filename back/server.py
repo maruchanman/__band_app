@@ -24,6 +24,24 @@ def _fix_url(url, yyyymmdd):
     url = url.replace("%-s", str(month - 1))
     return url
 
+def __fix_context(context):
+    sub_pattern = [
+        "\(.+?\)",
+        "【.+?】",
+        "（.+?）"
+    ]
+    replace_pattern = [
+        "■"
+        ":",
+        "："
+    ]
+    s = context
+    for pattern in sub_pattern:
+        s = re.sub(pattern, "", s)
+    for pattern in replace_pattern:
+        s = s.replace(pattern, "/")
+    return s
+
 
 @app.route('/b', methods=['GET'])
 def confirm():
@@ -61,12 +79,13 @@ def band_add():
         cur.execute(sql, (liveID, ))
         conn.commit()
         conn.close()
+    today = datetime.date.today()
     sql = (
         "SELECT liveID, context FROM live WHERE checked IS NULL "
-        "AND context IS NOT NULL ORDER BY liveID DESC LIMIT 1"
-    )
+        "AND yyyymmdd > {} AND context IS NOT NULL ORDER BY yyyymmdd LIMIT 1"
+    ).format(today.strftime('%Y%m%d'))
     liveID, context = fetch.fetch_one(sql)
-    context = re.sub("\(.+?\)", "", context).replace("■", "").replace(":", "/")
+    context = __fix_context(context)
     bands = [x for x in context.split('/') if len(x) < 20 and x != '']
     return render_template(
         'bandadd.html', bands=bands, liveID=liveID)
