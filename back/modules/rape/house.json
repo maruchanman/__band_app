@@ -423,6 +423,14 @@
     "open": "<dd>.+?</dd>",
     "end": "<div id=\"footer\">"
   },
+  "63": {
+    "name": "ZEPP TOKYO",
+    "pref": "東京",
+    "url": "http://hall.zepp.co.jp/tokyo/schedule.html?year=%4d&month=%s",
+    "date": "<span>\\d{1,2}</span>",
+    "open": "<div class=\"detail\">.+?</div>",
+    "end": "<footer.+?</footer>"
+  },
   "65": {
     "name": "新木場STUDIO COAST",
     "pref": "東京",
@@ -470,5 +478,77 @@
     "date": "\\d{1,2}/\\d{1,2}</div>",
     "open": "<span class=\"btn\">開場/開演</span>.+?</div>",
     "end": "<footer class=\"pagefooter\">"
+  },
+  "76": {
+    "name": "町田SDR",
+    "pref": "東京",
+    "url": "http://www.m-sdr.com/schedule/index.cgi?year=%4d&mon=%d",
+    "date": "<b>\\d{1,2}</b>",
+    "open": "OPEN \\d{1,2}:\\d{1,2}.+?</td>",
+    "end": "</table>"
+  },
+  "77": {
+    "name": "ZEPP SAPPORO",
+    "pref": "北海道",
+    "url": "http://hall.zepp.co.jp/sapporo/schedule.html?year=%4d&month=%s",
+    "date": "<span>\\d{1,2}</span>",
+    "open": "<div class=\"detail\">.+?</div>",
+    "end": "<footer.+?</footer>"
+  },
+  "78": {
+    "name": "ZEPP NAGOYA",
+    "pref": "愛知",
+    "url": "http://hall.zepp.co.jp/nagoya/schedule.html?year=%4d&month=%s",
+    "date": "<span>\\d{1,2}</span>",
+    "open": "<div class=\"detail\">.+?</div>",
+    "end": "<footer.+?</footer>"
+  },
+  "79": {
+    "name": "ZEPP NAMBA",
+    "pref": "大阪",
+    "url": "http://hall.zepp.co.jp/namba/schedule.html?year=%4d&month=%s",
+    "date": "<span>\\d{1,2}</span>",
+    "open": "<div class=\"detail\">.+?</div>",
+    "end": "<footer.+?</footer>"
+  },
+  "80": {
+    "name": "高円寺CLUB MISSION'S",
+    "pref": "東京",
+    "url": "http://www.live-missions.com/schedule.html?ym=%4d-%s",
+    "date": "<p class=\"day\">\\d{1,2}</p>",
+    "open": "<dt>OPEN</dt>.+?</dl>",
+    "end": "</article>"
+  },
+  "81": {
+    "name": "高円寺JIROKICHI",
+    "pref": "東京",
+    "url": "http://jirokichi.net/category/%4d年%d月/",
+    "date": "<div class=\"day\">\\d{1,2}</div>",
+    "open": "Open \\d{1,2}:\\d{1,2}.+?</p>",
+    "end": "<h2 class=\"widgettitle\">Schedule</h2>"
+  },
+  "82": {
+    "name": "下北沢ろくでもない夜",
+    "pref": "東京",
+    "url": "http://69demonai46.com/date/%4d/%s/",
+    "date": "<time.+?>.+?</time>",
+    "open": "<span>OPEN</span>.+?</dl>",
+    "end": "<!-- /#conts -->"
+  },
+  "84": {
+    "name": "渋谷HOME",
+    "pref": "東京",
+    "url": "http://www.toos.co.jp/home/h_schedule%2d_%s.html",
+    "date": "<b>\\d{1,2}.\\d{1,2}</b>",
+    "open": "open.+?\\d{1,2}:\\d{1,2}.+?</p>",
+    "end": "</body>"
+  },
+  "85": {
+    "name": "渋谷チェルシーホテル",
+    "pref": "東京",
+    "url": "http://www.chelseahotel.jp/%2d%s.html",
+    "date": "<p class=\"bold\">\\d{1,2}/\\d{1,2}\\(.\\)",
+    "open": "OPEN.{0,1}\\d{1,2}:\\d{1,2}.+?</font>",
+    "end": "</body>"
   }
 }

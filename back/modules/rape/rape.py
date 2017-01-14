@@ -75,7 +75,7 @@ class Rape():
                 time = [x for x in re.findall("\d{2}:\d{2}", info.replace('：', ':'))]
                 price = [
                     x for x in re.findall(
-                        "\d{1,3}00", info.replace(",", "").replace(".", "")) if int(x)!=0]
+                        "\d{1,3}00", info.replace(",", "").replace(".", "")) if int(x)!=0 and int(x) < 20000]
                 context = self.__to_context(html, infos, ix)
                 bands = self.__extract_bands(context)
                 r.append({
@@ -117,6 +117,7 @@ class Rape():
         html = re.split(data["end"], html)[0]
         date_tags = re.findall(data["date"], html)
         if len(date_tags) == 0:
+            print("date_tag is invalid")
             return False
         days = self.__extract_day(date_tags)
         boxes = re.split(data["date"], html)[1 : len(days) + 1]
