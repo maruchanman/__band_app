@@ -3,8 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
-  ListView,
-  ActivityIndicator
+  ListView
 } from 'react-native';
 import BandRow from './BandRow.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -32,10 +31,6 @@ export default class BandList extends React.Component {
         bands: this.state.bands.concat(responseData), loading: false}))
   }
 
-  setDate(date) {
-    this.setState({date: date});
-  }
-
   _onEndReached() {
     if(!this.state.loading) {
       this.setState(
@@ -58,11 +53,7 @@ export default class BandList extends React.Component {
             <BandRow
               key={rowData.bandID} band={rowData}
               push={this.props.navigator.push}
-              play={this.state.visibleRow == rowID ? true : false}/>)}
-          renderFooter={() => (
-              <ActivityIndicator
-                animating={true}
-                style={this.state.loadMore ? {} : styles.hidden}/>)}/>
+              play={this.state.visibleRow == rowID ? true : false}/>)}/>
       </View>
     )
   }
@@ -74,9 +65,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'whitesmoke',
     flex: 1,
     flexDirection: 'row'
-  },
-  hidden: {
-    height: 0,
-    opacity: 0
   }
 });

@@ -14,7 +14,11 @@ const routeMapper = props => ({
   LeftButton: (route, navigator, index, navState) => {
     if (route.name != "BandList" || route.date.getDate() != new Date().getDate()){
       return (
-        <TouchableWithoutFeedback onPress={navigator.pop}>
+         <TouchableWithoutFeedback
+          onPress={() => {
+            var newDate = route.date;
+            newDate.setDate(route.date.getDate() - 1);
+            navigator.resetTo({name: "BandList", date: newDate})}}>
           <Icon name="chevron-left" size={20} color="gray" style={styles.icon}/>
         </TouchableWithoutFeedback>
       )
@@ -27,7 +31,7 @@ const routeMapper = props => ({
           onPress={() => {
             var newDate = route.date;
             newDate.setDate(route.date.getDate() + 1);
-            navigator.push({name: "BandList", date: newDate})}}>
+            navigator.resetTo({name: "BandList", date: newDate})}}>
           <Icon name="chevron-right" size={20} color="gray" style={styles.icon}/>
         </TouchableWithoutFeedback>
       )
@@ -44,7 +48,13 @@ const routeMapper = props => ({
     }
   },
   Title: (route, navigator, index, navState) => {
-    return (<Text>本日出演のアーティスト</Text>)
+    if (route.date.getDate() == new Date().getDate()){
+      return (<Text style={styles.title}>Today</Text>)
+    } else if (route.date.getDate() == new Date().getDate() + 1) {
+      return (<Text style={styles.title}>Tommorow</Text>)
+    } else {
+      return (<Text style={styles.title}>{((route.date.getYear() + 1900) + "." + route.date.getMonth() + 1) + "." + route.date.getDate()}</Text>)
+    }
   }
 });
 
@@ -91,5 +101,11 @@ const styles = {
   },
   icon: {
     padding: 10,
+  },
+  title: {
+    padding: 13,
+    color: 'gray',
+    fontWeight: 'bold',
+    fontSize: 14
   },
 }
