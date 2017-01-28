@@ -3,6 +3,7 @@
 import urllib
 import requests
 from bs4 import BeautifulSoup
+from selenium import webdriver
 from .conn import Connect
 
 
@@ -30,9 +31,9 @@ class Insert(Connect):
         cur.execute(sql, (name.replace("'", "''"),))
         if cur.fetchone()[0] == 0:
             sql = (
-                "INSERT INTO band (name, video) VALUES (%s, %s)"
+                "INSERT INTO band (name, video, icon) VALUES (%s, %s, %s)"
             )
-            cur.execute(sql, (name.replace("'", "''"), video))
+            cur.execute(sql, (name.replace("'", "''"), video, self._fig(name)))
         conn.commit()
         conn.close()
 
@@ -133,6 +134,20 @@ class Insert(Connect):
                 video = box.attrs.get("href").split("?v=")[1][:11]
                 break
         return video
+
+    def _fig(self, band):
+        url = (
+            "https://www.amazon.co.jp/s/ref=nb_sb_noss"
+            "?url=search-alias%3Dpopular&field-keywords={}")
+        url = url.format(urllib.parse.quote(band))
+        driver = webdriver.PhantomJS()
+        driver.get(url)
+        soup = BeautifulSoup(driver.page_source)
+        images = [tag.img for tag in soup.select("#atfResults > ul > li")]
+        jackets = [x for x in images if x.get("height") == x.get("width")]
+        if len(jackets) == 0:
+            return None
+        return jackets[0].get("src")
 
     def _house(self, houseID, house, cur):
         name = house["name"].replace("'", "''")

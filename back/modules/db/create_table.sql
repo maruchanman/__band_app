@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS gigs.band
   bandID int(11) AUTO_INCREMENT,
   name varchar(255) NOT NULL,
   video char(11),
+  icon varchar(255),
   PRIMARY KEY (bandID)
 ) DEFAULT CHARSET=utf8;
 
