@@ -6,19 +6,26 @@ import {
   TouchableWithoutFeedback,
   Image
 } from 'react-native';
+import YouTube from 'react-native-youtube';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class BandRow extends React.Component {
 
   render() {
     return (
-      <TouchableWithoutFeedback
-        onPress={() => this.props.push({name: "BandPage", band: this.props.band})}>
-        <View style={styles.row}>
-          <Text style={styles.infoText}>{this.props.band.name}</Text>
-          <Icon color="gray" size={16} name="chevron-right"/>
-        </View>
-      </TouchableWithoutFeedback>
+      <View
+        style={styles.row}>
+        <YouTube
+          videoId={this.props.band.video}
+          play={this.props.play}
+          playsInline={true}
+          fs={false}
+          rel={true}
+          controls={0}
+          showinfo={false}
+          modestbranding={true}
+          style={styles.video}/>
+      </View>
     )
   }
 
@@ -26,14 +33,20 @@ export default class BandRow extends React.Component {
 
 const styles = StyleSheet.create({
   row: {
-    paddingVertical: 8,
+    paddingTop: 30,
+    marginVertical: 30,
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
+    height: 420,
+    backgroundColor: 'white',
     justifyContent: 'space-between'
   },
   infoText: {
     fontWeight: 'bold',
     fontSize: 14,
   },
+  video: {
+    flex: 1,
+    height: 300
+  }
 });

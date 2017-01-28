@@ -6,19 +6,13 @@ import {
   TouchableWithoutFeedback
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import LiveList from './LiveList.js';
+import BandList from './BandList.js';
 import LivePage from './LivePage.js';
 import BandPage from './BandPage.js';
 
 const routeMapper = props => ({
   LeftButton: (route, navigator, index, navState) => {
-    if (index == 0){
-      return (
-        <TouchableWithoutFeedback onPress={() => props.toggleModal("search")}>
-          <Icon name="search" size={20} color="gray" style={styles.icon}/>
-        </TouchableWithoutFeedback>
-      )
-    } else {
+    if (route.name != "BandList" || route.date.getDate() != new Date().getDate()){
       return (
         <TouchableWithoutFeedback onPress={navigator.pop}>
           <Icon name="chevron-left" size={20} color="gray" style={styles.icon}/>
@@ -27,10 +21,14 @@ const routeMapper = props => ({
     }
   },
   RightButton: (route, navigator, index, navState) => {
-    if (index == 0){
+    if (route.name == "BandList"){
       return (
-        <TouchableWithoutFeedback onPress={() => props.toggleModal("calendar")}>
-          <Icon name="calendar" size={20} color="gray" style={styles.icon}/>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            var newDate = route.date;
+            newDate.setDate(route.date.getDate() + 1);
+            navigator.push({name: "BandList", date: newDate})}}>
+          <Icon name="chevron-right" size={20} color="gray" style={styles.icon}/>
         </TouchableWithoutFeedback>
       )
     } else if (route.name == "BandPage") {
@@ -43,20 +41,18 @@ const routeMapper = props => ({
             style={styles.icon}/>
         </TouchableWithoutFeedback>
       )
-    } else {
-      return null
     }
   },
   Title: (route, navigator, index, navState) => {
-    return null
+    return (<Text>本日出演のアーティスト</Text>)
   }
 });
 
 export default class Search extends Component {
 
   renderScene(route, navigator) {
-    if (route.name == "LiveList") {
-      return <LiveList navigator={navigator} date={route.date} {...route.passProps}/>
+    if (route.name == "BandList") {
+      return <BandList navigator={navigator} date={route.date}/>
     } else if (route.name == "LivePage") {
       return <LivePage navigator={navigator} live={route.live} color={route.color}/>
     } else if (route.name == "BandPage") {
@@ -68,12 +64,8 @@ export default class Search extends Component {
     return (
       <Navigator
         initialRoute={{
-          name: 'LiveList',
-          date: new Date(),
-          passProps: {
-            toggleModal: this.props.toggleModal,
-            visibleModal: this.props.visibleModal,
-          }
+          name: 'BandList',
+          date: new Date()
         }}
         renderScene={this.renderScene}
         style={styles.wrapper}

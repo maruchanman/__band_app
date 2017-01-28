@@ -17,6 +17,8 @@ class Fetch(Connect):
             ret = self._fetch_lives(data, conn)
             for live in ret:
                 live["act"] = self._fetch_acts(live["liveID"], conn)
+        elif command == 'bands':
+            ret = self._fetch_bands(data, conn)
         elif command == 'band':
             ret = self._fetch_band(data, conn)
         elif command == 'live':
@@ -77,6 +79,18 @@ class Fetch(Connect):
             )
             cursor.execute(sql, (data["bandID"], today))
         return list(cursor.fetchall())
+
+    def _fetch_bands(self, data, conn):
+        num = 4
+        cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+        sql = (
+          "SELECT distinct band.* FROM band INNER JOIN act ON band.bandID = act.bandID "
+          "WHERE act.liveID IN (SELECT liveID FROM live WHERE yyyymmdd = %s ORDER BY liveID) "
+          "ORDER BY bandID LIMIT %s, %s"
+        )
+        cursor.execute(
+            sql, (data["date"].strftime("%Y%m%d"), data["cnt"] * num, num))
+        return cursor.fetchall()
 
     def _fetch_live(self, liveID, conn):
         cursor = conn.cursor(MySQLdb.cursors.DictCursor)

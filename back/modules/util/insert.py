@@ -30,10 +30,11 @@ class Insert(Connect):
         sql = "SELECT count(*) FROM band WHERE name = %s"
         cur.execute(sql, (name.replace("'", "''"),))
         if cur.fetchone()[0] == 0:
+            fig = self._fig(name)
             sql = (
                 "INSERT INTO band (name, video, icon) VALUES (%s, %s, %s)"
             )
-            cur.execute(sql, (name.replace("'", "''"), video, self._fig(name)))
+            cur.execute(sql, (name.replace("'", "''"), video, fig if fig is not None else "NULL"))
         conn.commit()
         conn.close()
 
@@ -66,7 +67,7 @@ class Insert(Connect):
             cur.execute(sql, (userID, bandID))
         conn.commit()
         conn.close()
-  
+
     def _live(self, live, info, cur):
         if len(live["html"]) > 0 and len(live["time"]) > 0:
             houseID, year, month = info
@@ -101,7 +102,7 @@ class Insert(Connect):
                 return liveID
         else:
             return False
-  
+
     def _act(self, liveID, act, cur):
         for band in act:
             sql = (
@@ -138,16 +139,16 @@ class Insert(Connect):
     def _fig(self, band):
         url = (
             "https://www.amazon.co.jp/s/ref=nb_sb_noss"
-            "?url=search-alias%3Dpopular&field-keywords={}")
+            "?url=search-alias%3Ddigital-music&field-keywords={}")
         url = url.format(urllib.parse.quote(band))
         driver = webdriver.PhantomJS()
         driver.get(url)
         soup = BeautifulSoup(driver.page_source)
-        images = [tag.img for tag in soup.select("#atfResults > ul > li")]
-        jackets = [x for x in images if x.get("height") == x.get("width")]
-        if len(jackets) == 0:
+        tags = [x for x in soup.select("#centerPlus > .a-unordered-list > li") if x.text.find("プライム") == -1]
+        tags = [x for x in tags if x.select("a")[-1].text.lower() == band.lower()]
+        if len(tags) == 0:
             return None
-        return jackets[0].get("src")
+        return tags[0].img.get("src")
 
     def _house(self, houseID, house, cur):
         name = house["name"].replace("'", "''")

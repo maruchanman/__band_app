@@ -15,11 +15,9 @@ export default class App extends Component {
     super();
     this.state = {
       selectedTab: "Search",
-      likes: [],
-      visibleModal: {calendar: false, search: false}
+      likes: []
     }
     this.toggleLike = this.toggleLike.bind(this);
-    this.toggleModal = this.toggleModal.bind(this);
   }
 
   toggleLike(bandID) {
@@ -40,12 +38,6 @@ export default class App extends Component {
         }
         this.setState({likes: newLikes})
       })
-  }
-
-  toggleModal(modalName) {
-    var visibleModal = this.state.visibleModal;
-    visibleModal[modalName] = visibleModal[modalName] ? false : true;
-    this.setState({visibleModal: visibleModal});
   }
 
   _loadLikes() {
@@ -73,15 +65,13 @@ export default class App extends Component {
         >
         <Icon.TabBarItem
           title=""
-          iconName="home"
+          iconName="search"
           selected={this.state.selectedTab == 'Search'}
           onPress={() => this.changeTab("Search")}
         >
           <Search
             likes={this.state.likes}
-            toggleLike={this.toggleLike}
-            toggleModal={this.toggleModal}
-            visibleModal={this.state.visibleModal}/>
+            toggleLike={this.toggleLike}/>
         </Icon.TabBarItem>
         <Icon.TabBarItem
           title=""

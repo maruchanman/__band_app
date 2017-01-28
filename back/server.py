@@ -99,6 +99,12 @@ def post_like():
     return jsonify({"status": "ok"})
 
 
+@app.route('/b/bands/<int:year>/<int:month>/<int:day>/<int:cnt>')
+def fetch_bands(year, month, day, cnt):
+    date = datetime.date(year, month, day)
+    data = fetch.execute("bands", {"date": date, "cnt": cnt})
+    return jsonify(data)
+
 @app.route('/b/lives/<int:year>/<int:month>/<int:day>')
 def fetch_lives(year, month, day):
     date = datetime.date(year, month, day)
