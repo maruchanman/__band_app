@@ -29,6 +29,7 @@ export default class BandList extends React.Component {
       .then((response) => response.json())
       .then((responseData) => this.setState({
         bands: this.state.bands.concat(responseData), loading: false}))
+      .then(() => console.log(this.state.bands))
   }
 
   _onEndReached() {
@@ -64,6 +65,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'whitesmoke',
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginBottom: 30
   }
 });

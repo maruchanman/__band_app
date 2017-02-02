@@ -12,7 +12,14 @@ import BandPage from './BandPage.js';
 
 const routeMapper = props => ({
   LeftButton: (route, navigator, index, navState) => {
-    if (route.name != "BandList" || route.date.getDate() != new Date().getDate()){
+    if (route.name != "BandList") {
+      return (
+         <TouchableWithoutFeedback
+          onPress={() => navigator.pop()}>
+          <Icon name="chevron-left" size={20} color="gray" style={styles.icon}/>
+        </TouchableWithoutFeedback>
+      )
+    } else if (route.date.getDate() != new Date().getDate()){
       return (
          <TouchableWithoutFeedback
           onPress={() => {
@@ -48,12 +55,16 @@ const routeMapper = props => ({
     }
   },
   Title: (route, navigator, index, navState) => {
-    if (route.date.getDate() == new Date().getDate()){
-      return (<Text style={styles.title}>Today</Text>)
-    } else if (route.date.getDate() == new Date().getDate() + 1) {
-      return (<Text style={styles.title}>Tommorow</Text>)
-    } else {
-      return (<Text style={styles.title}>{((route.date.getYear() + 1900) + "." + route.date.getMonth() + 1) + "." + route.date.getDate()}</Text>)
+    if (route.name == "BandList"){
+      if (route.date.getDate() == new Date().getDate()){
+        return (<Text style={styles.title}>Today</Text>)
+      } else if (route.date.getDate() == new Date().getDate() + 1) {
+        return (<Text style={styles.title}>Tommorow</Text>)
+      } else {
+        return (<Text style={styles.title}>{(route.date.getYear() + 1900) + "." + (route.date.getMonth() + 1) + "." + route.date.getDate()}</Text>)
+      }
+    } else if (route.name == "BandPage") {
+      return (<Text style={styles.title}>{route.band.name}</Text>)
     }
   }
 });

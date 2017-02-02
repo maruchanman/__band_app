@@ -36,24 +36,14 @@ export default class BandPage extends React.Component {
   }
 
   render() {
-
     return (
       <ScrollView style={styles.container}>
-        <View style={styles.box}>
-          <View style={styles.bandLabel}>
-            <Text style={styles.bandName}>{this.props.band.name}</Text>
-          </View>
-          <YouTube
-            videoId={this.props.band.video}
-            playsInline={true}
-            style={styles.video}/>
-        </View>
-        <View style={styles.box}>
-          <Text style={{color: 'gray'}}>今後のライブ</Text>
-          {this.state.schedules.map((live) => (
+        <Text style={styles.description}>今後のライブ</Text>
+        {this.state.schedules.map((live) => (
+          <View style={styles.box}>
             <LiveRow live={live} key={live.liveID} push={this.props.navigator.push}/>
-          ))}
-        </View>
+          </View>
+        ))}
       </ScrollView>
     );
 
@@ -63,35 +53,20 @@ export default class BandPage extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 20,
     backgroundColor: 'whitesmoke',
   },
   box: {
     margin: 5,
-    padding: 10,
+    padding: 5,
     backgroundColor: 'white'
   },
-  icon: {
-    height: 70,
-    width: 70,
+  image: {
+    width: 200,
+    height: 200
   },
-  bandName: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  bandLabel: {
-    paddingVertical: 10
-  },
-  scheduleBox: {
-    margin: 5,
-  },
-  video: {
-    flex: 1,
-    minHeight: 200
-  },
-  label: {
-    fontSize: 18,
-    paddingVertical: 2,
-    paddingHorizontal: 10,
+  description: {
+    color: 'dimgray',
     fontWeight: 'bold'
   }
 });

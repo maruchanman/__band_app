@@ -84,9 +84,10 @@ class Fetch(Connect):
         num = 4
         cursor = conn.cursor(MySQLdb.cursors.DictCursor)
         sql = (
-          "SELECT distinct band.* FROM band INNER JOIN act ON band.bandID = act.bandID "
-          "WHERE act.liveID IN (SELECT liveID FROM live WHERE yyyymmdd = %s ORDER BY liveID) "
-          "ORDER BY bandID LIMIT %s, %s"
+          "SELECT distinct band.*, house.name AS house FROM band INNER JOIN act "
+          "ON band.bandID = act.bandID INNER JOIN live ON act.liveID = live.liveID "
+          "INNER JOIN house ON live.houseID = house.houseID "
+          "WHERE live.yyyymmdd = %s ORDER BY band.sort_key LIMIT %s, %s"
         )
         cursor.execute(
             sql, (data["date"].strftime("%Y%m%d"), data["cnt"] * num, num))

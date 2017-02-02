@@ -5,6 +5,7 @@ import {
   View,
   Image,
   TouchableWithoutFeedback,
+  ListView,
   ScrollView,
   Linking
 } from 'react-native';
@@ -12,6 +13,15 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import BandRow from './BandRow.js';
 
 export default class LivePage extends React.Component {
+
+  constructor(props) {
+    super(props);
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {
+      ds: ds,
+      visibleRow: 0
+    }
+  }
 
   render() {
 
@@ -42,13 +52,21 @@ export default class LivePage extends React.Component {
             <Icon color="black" size={14} name="jpy"/>
             <Text style={styles.infoText}>{this.props.live.ticket}</Text>
           </View>
-          <Text style={{color: 'gray', fontWeight: 'bold'}}>出演:</Text>
-          {this.props.live.act.map((band) => (
-            <BandRow key={band.bandID} band={band} push={this.props.navigator.push}/>
-          ))}
         </View>
+        <Text style={{color: 'gray', fontWeight: 'bold'}}>出演</Text>
+        <ListView
+          dataSource={this.state.ds.cloneWithRows(this.props.live.act)}
+          onChangeVisibleRows={
+            (visibleRows) => this.setState({
+              visibleRow: Object.keys(visibleRows.s1)[0]})}
+          style={styles.listView}
+          renderRow={(rowData, sectionID, rowID) => (
+            <BandRow
+              key={rowData.bandID} band={rowData}
+              push={this.props.navigator.push}
+              play={this.state.visibleRow == rowID ? true : false}/>)}/>
+        <Text style={{color: 'gray', fontWeight: 'bold'}}>詳細</Text>
         <View style={styles.box}>
-          <Text style={{color: 'gray', fontWeight: 'bold'}}>詳細:</Text>
           <Text style={styles.context}>{this.props.live.context}</Text>
         </View>
         <View>
@@ -68,9 +86,11 @@ export default class LivePage extends React.Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'whitesmoke',
+    flex: 1,
+    flexDirection: 'column'
   },
   box: {
-    margin: 5,
+    marginBottom: 10,
     paddingHorizontal: 10,
     paddingVertical: 20,
     backgroundColor: 'white'
@@ -98,5 +118,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     alignSelf: 'center',
     color: 'gray'
+  },
+  listView: {
+    height: 400,
+    margin: 0
   }
 });

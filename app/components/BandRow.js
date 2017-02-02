@@ -21,21 +21,39 @@ export default class BandRow extends React.Component {
     return (
       <View
         style={styles.row}>
-        <ActivityIndicator
-          animating={true}
-          size="large"
-          style={this.state.ready ? styles.hidden : styles.loading}/>
-        <YouTube
-          videoId={this.props.band.video}
-          play={this.props.play}
-          playsInline={true}
-          fs={false}
-          rel={true}
-          hidden={!this.state.ready}
-          showinfo={false}
-          modestbranding={true}
-          style={this.state.ready ? styles.video : styles.hidden}
-          onReady={(e) => this.setState({ready: true})}/>
+        <View style={styles.videoBox}>
+          <ActivityIndicator
+            animating={true}
+            size="large"
+            style={this.state.ready ? styles.hidden : styles.loading}/>
+          {this.props.play ? (
+              <YouTube
+                videoId={this.props.band.video}
+                play={true}
+                playsInline={true}
+                fs={false}
+                rel={true}
+                hidden={!this.state.ready}
+                showinfo={false}
+                modestbranding={true}
+                style={this.state.ready ? styles.video : styles.hidden}
+                onReady={(e) => this.setState({ready: true})}/>) : null}
+        </View>
+        <View style={styles.infoBox}>
+          <View style={styles.block}>
+            <Text sytle={styles.bandName}>{this.props.band.name}</Text>
+          </View>
+          {this.props.band.house ? (
+            <View style={styles.block}>
+              <Text sytle={styles.bandName}>@{this.props.band.house}</Text>
+            </View>) : null}
+          <TouchableWithoutFeedback
+            onPress={() => this.props.push({name: "BandPage", band: this.props.band})}>
+            <View style={styles.block}>
+              <Text sytle={styles.liveLink}>詳細>></Text>
+            </View>
+          </TouchableWithoutFeedback>
+        </View>
       </View>
     )
   }
@@ -44,21 +62,39 @@ export default class BandRow extends React.Component {
 
 const styles = StyleSheet.create({
   row: {
-    paddingTop: 30,
-    marginVertical: 30,
+    paddingTop: 20,
+    marginBottom: 30,
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     height: 420,
     backgroundColor: 'white',
     justifyContent: 'center'
   },
-  infoText: {
-    fontWeight: 'bold',
-    fontSize: 14,
+  bandName: {
+    fontSize: 40
+  },
+  liveLink: {
+    color: 'gray'
+  },
+  videoBox: {
+    flex: 4,
+    flexDirection: 'column',
+    justifyContent: 'center'
+  },
+  infoBox: {
+    flex: 1,
+    flexDirection: 'column',
+    padding: 20,
+    justifyContent: 'flex-start'
+  },
+  block: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    margin: 2
   },
   video: {
-    flex: 1,
-    height: 300
+    flex: 1
   },
   hidden: {
     height: 0,
